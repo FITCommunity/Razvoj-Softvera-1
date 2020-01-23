@@ -1,0 +1,22 @@
+﻿@using RS1_Ispit_asp.net_core.EF
+@model RS1_Ispit_asp.net_core.EF.MojContext
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Test DB - row count</h2>
+
+AkademskaGodina: @Model.AkademskaGodina.Count() <br />
+Angazovan: @Model.Angazovan.Count() <br />
+Nastavnik: @Model.Nastavnik.Count() <br />
+Predmet: @Model.Predmet.Count() <br />
+SlusaPredmet: @Model.SlusaPredmet.Count() <br />
+Student: @Model.Student.Count() <br />
+UpisGodine: @Model.UpisGodine.Count() <br />
+OdrzaniCas: @Model.OdrzaniCas.Count() <br />
+OdrzaniCasDetalji: @Model.OdrzaniCasDetalji.Count() <br />
+
+
+@Html.ActionLink("Back", "Index")
