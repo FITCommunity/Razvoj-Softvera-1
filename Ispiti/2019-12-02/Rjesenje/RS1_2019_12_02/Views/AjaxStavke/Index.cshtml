@@ -1,0 +1,53 @@
+﻿@model RS1_2019_12_02.ViewModels.AjaxStudentListaVM
+@{
+    Layout = null;
+}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <td>Učenik</td>
+                <td>Odjeljenje</td>
+                <td>Broj u dnevniku</td>
+                <td>Pristupio ispitu</td>
+                <td>Rezultat maturskog (max 100)</td>
+                <td>Akcija</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var Row in Model.Rows)
+            {
+            <tr>
+                <td>@Row.Ucenik</td>
+                <td>@Row.Odjeljenje</td>
+                <td>@Row.BrojUcenikaUDnevniku</td>
+                @if (Row.Bodovi == null)
+                {
+                    <td><p style="color: red">Nema pravo na popravni</p></td>
+                    <td>0</td>
+
+                }
+                else if (Row.Pristupio == true)
+                {
+                    <td><a class="btn btn-success" asp-controller="AjaxStavke" asp-action="UcenikJeOdsutan" asp-route-id="@Row.PopravniIspitStavkaId">DA</a></td>
+                    <td>@Row.Bodovi</td>
+                }
+                else if (Row.Pristupio == false)
+                {
+                    <td><a class="btn btn-danger" asp-controller="AjaxStavke" asp-action="UcenikJePrisutan" asp-route-id="@Row.PopravniIspitStavkaId">NE</a></td>
+                    <td>X</td>
+                }
+
+                @if (Row.Pristupio == true)
+                {
+                    <td><a asp-controller="AjaxStavke" asp-action="Uredi" asp-route-id="@Row.PopravniIspitStavkaId">Uredi</a></td>
+                }
+                else
+                {
+                    <td></td>
+                }
+            </tr>
+            }
+        </tbody>
+    </table>
+

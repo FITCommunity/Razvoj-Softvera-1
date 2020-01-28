@@ -1,0 +1,39 @@
+﻿@model RS1_2019_12_02.ViewModels.PopravniIspitDodajVM
+@{
+    ViewData["Title"] = "Uredi";
+}
+<div style="margin-top: 20px">
+    <form>
+        <input type="text" asp-for="@Model.OdjeljenjeId" hidden />
+        <div class="form-group">
+            <label asp-for="PredmetId" class="control-label">Predmet</label>
+            <select asp-for="PredmetId" asp-items="@Model.Predmeti" class="form-control" readonly></select>
+        </div>
+        <div class="form-group">
+            <label asp-for="Datum" class="control-label">Datum ispita:</label>
+            <input asp-for="Datum" type="date" class="form-control" value="@Model.Datum.ToString("dddd dd/MM/yyyy")" readonly>
+        </div>
+        <div class="form-group">
+            <label asp-for="Skola" class="control-label">Škola:</label>
+            <input asp-for="Skola" type="text" class="form-control" value="@Model.Skola" readonly>
+        </div>
+        <div class="form-group">
+            <label asp-for="SkolskaGodina" class="control-label">Školska godina:</label>
+            <input asp-for="SkolskaGodina" type="text" class="form-control" value="@Model.SkolskaGodina" readonly>
+        </div>
+        <div class="form-group">
+            <label asp-for="Odjeljenje" class="control-label">Odjeljenje:</label>
+            <input asp-for="Odjeljenje" type="text" class="form-control" value="@Model.Odjeljenje" readonly>
+        </div>
+    </form>
+</div>
+<div id="AjaxDiv">
+
+</div>
+
+
+<script>
+    $.get("/AjaxStavke/Index?Id=@Model.PopravniIspitId", function (result) {
+        $("#AjaxDiv").html(result);
+    });
+</script>

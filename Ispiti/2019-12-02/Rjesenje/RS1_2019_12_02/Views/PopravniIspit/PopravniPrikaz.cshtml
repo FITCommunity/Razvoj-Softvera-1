@@ -1,0 +1,30 @@
+﻿@model RS1_2019_12_02.ViewModels.PopravniIspitiVM
+@{
+    ViewData["Title"] = "PopravniPrikaz";
+}
+<div style="text-align: center">Popravni ispiti za odjeljenje @Model.Odjeljenje - @Model.Skola - @Model.SkolskaGodina</div>
+<table class="table">
+    <thead>
+        <tr>
+            <td>Datum popravnog ispita</td>
+            <td>Predmet</td>
+            <td>Broj učenika na popravnom ispitu</td>
+            <td>Broj učenika koji su položili ispit</td>
+            <td>Akcija</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var Row in Model.Rows)
+        {
+            <tr>
+                <td>@Row.Datum</td>
+                <td>@Row.Predmet</td>
+                <td>@Row.BrojUcenikaNaPopravnom</td>
+                <td>@Row.BrojUcenikaKojiSuPolozili</td>
+                <td><a asp-controller="PopravniIspit" asp-action="Uredi" asp-route-id="@Row.PopravniIspitId">Uredi</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a class="btn btn-default" asp-controller="PopravniIspit" asp-action="Dodaj" asp-route-id="@Model.OdjeljenjeId">Dodaj</a>
+
