@@ -69,7 +69,12 @@ namespace RS1_2019_12_02.Controllers
 
         public IActionResult Uredi(int Id)
         {
-            var Stavka = ctx.PopravniIspitStavka.Find(Id);
+            var Stavka = ctx.PopravniIspitStavka
+                .Include(i => i.OdjeljenjeStavka)
+                .Include(i => i.OdjeljenjeStavka.Ucenik)
+                .Where(i => i.Id == Id)
+                .SingleOrDefault();
+
             var model = new AjaxStavkaUrediVM
             {
                 PopravniIspitStavkaId = Id,
@@ -78,6 +83,22 @@ namespace RS1_2019_12_02.Controllers
                 Bodovi = Stavka.Bodovi
             };
             return PartialView(model);
+        }
+
+        public IActionResult Snimi(AjaxStavkaUrediVM model)
+        {
+            var Stavka = ctx.PopravniIspitStavka.Find(model.PopravniIspitStavkaId);
+            Stavka.Bodovi = model.Bodovi;
+            ctx.SaveChanges();
+
+            return Redirect("/PopravniIspit/Uredi?Id=" + Stavka.PopravniId);
+        }
+
+        public void UpdateBodovi(int id, int bodovi)
+        {
+            var Stavka = ctx.PopravniIspitStavka.Find(id);
+            Stavka.Bodovi = bodovi;
+            ctx.SaveChanges();
         }
     }
 }

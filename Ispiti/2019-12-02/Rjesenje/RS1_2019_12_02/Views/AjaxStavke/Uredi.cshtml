@@ -3,7 +3,7 @@
     ViewData["Title"] = "Uredi";
 }
 
-<form asp-controller="AjaxStavke" asp-action="Snimi">
+<form asp-controller="AjaxStavke" asp-action="Snimi" ajax-poziv="da" ajax-rezultat="AjaxDiv">
     <input asp-for="PopravniIspitStavkaId" hidden />
     <label>Ucenik: @Model.Ucenik</label> <br />
     <input asp-for="@Model.Bodovi" type="text" />

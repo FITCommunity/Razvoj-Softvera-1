@@ -30,7 +30,7 @@
                 else if (Row.Pristupio == true)
                 {
                     <td><a class="btn btn-success" asp-controller="AjaxStavke" asp-action="UcenikJeOdsutan" asp-route-id="@Row.PopravniIspitStavkaId">DA</a></td>
-                    <td>@Row.Bodovi</td>
+                    <td><input class="Bodovi" type="text" value="@Row.Bodovi" id="@Row.PopravniIspitStavkaId"/></td>
                 }
                 else if (Row.Pristupio == false)
                 {
@@ -40,7 +40,10 @@
 
                 @if (Row.Pristupio == true)
                 {
-                    <td><a asp-controller="AjaxStavke" asp-action="Uredi" asp-route-id="@Row.PopravniIspitStavkaId">Uredi</a></td>
+                    <td><button id="@Row.PopravniIspitStavkaId" class="UrediStavku" 
+                                ajax-poziv="da" 
+                                ajax-rezultat="AjaxDiv" 
+                                ajax-url="/AjaxStavke/Uredi?Id=@Row.PopravniIspitStavkaId" >Uredi</button></td>
                 }
                 else
                 {
@@ -51,3 +54,25 @@
         </tbody>
     </table>
 
+<script>
+    function UpdateBodovi() {
+        $("input.Bodovi").focusout(function (e, status) {
+            var id = $(this).attr("id");
+            var bodovi = $(this).val();
+            
+            $.post("/AjaxStavke/UpdateBodovi?id=" + id + "&bodovi=" + bodovi);
+
+
+        });
+    }
+
+    $(document).ready(function () {
+    // izvršava nakon što glavni html dokument bude generisan
+        UpdateBodovi();
+    });
+
+    $(document).ajaxComplete(function () {
+        // izvršava nakon bilo kojeg ajax poziva
+        UpdateBodovi();
+    });
+</script>
