@@ -1,0 +1,28 @@
+﻿@model RS1_2020_01_30.ViewModels.TakmicenjeIndexVM
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<h4>Korisnik može odabrati</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="Takmicenje" asp-action="Odaberi">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="SkolaId" class="control-label">Škola</label>
+                <select asp-for="SkolaId" asp-items="@Model.Skole" class="form-control"></select>
+                <span asp-validation-for="SkolaId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Razred" class="control-label">Razred</label>
+                <select asp-for="Razred" asp-items="@Model.Razredi" class="form-control"></select>
+                <span asp-validation-for="Razred" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Odaberi" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>

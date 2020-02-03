@@ -1,0 +1,83 @@
+﻿@model RS1_2020_01_30.ViewModels.RezultatiAjaxIndexVM
+@{
+    Layout = null;
+}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <td>Odjeljenje</td>
+                <td>Broj u dnevniku</td>
+                <td>Pristupio</td>
+                <td>Rezultat bodovi(Max 100)</td>
+                <td>Akcija</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var Row in Model.Rows)
+            {
+                <tr>
+                    <td>@Row.Odjeljenje</td>
+                    <td>@Row.BrojUDnevniku</td>
+                    
+                    @if (Row.IsPristupio)
+                    {
+                        <td>
+                            <a 
+                               class="btn btn-success" 
+                               asp-controller="Takmicenje" 
+                               asp-action="UcenikNijePristupio" 
+                               asp-route-id="@Row.TakmicenjeUcesnikId">DA
+                            </a>
+                        </td>
+                        <td><input class="Bodovi" id="@Row.TakmicenjeUcesnikId" type="number" value="@Row.Bodovi" /></td>
+                        <td>
+                            <button id="@Row.TakmicenjeUcesnikId" 
+                                    ajax-poziv="da" 
+                                    ajax-rezultat="AjaxDiv" 
+                                    ajax-url="/AjaxStavke/Uredi?id=@Row.TakmicenjeUcesnikId">Uredi
+                            </button>
+                        </td>
+
+                    }
+                    else
+                    {
+                        <td>
+                            <a 
+                               class="btn btn-danger" 
+                               asp-controller="Takmicenje" 
+                               asp-action="UcenikJePristupio" 
+                               asp-route-id="@Row.TakmicenjeUcesnikId">NE
+                            </a>
+                        </td>
+                        <td>X</td>
+                        <td></td>
+                        
+                    }
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+<script>
+    function UpdateBodovi() {
+        $("input.Bodovi").focusout(function (e, status) {
+            var id = $(this).attr("id");
+            var bodovi = $(this).val();
+
+            if (bodovi >= 0 && bodovi <= 100) {
+                $.post("/AjaxStavke/UpdateBodovi?id=" + id + "&bodovi=" + bodovi);
+            }
+            
+        });
+    }
+
+    $(document).ready(function () {
+        UpdateBodovi();
+    });
+
+    $(document).ajaxComplete(function () {
+        UpdateBodovi();
+    });
+</script>
+

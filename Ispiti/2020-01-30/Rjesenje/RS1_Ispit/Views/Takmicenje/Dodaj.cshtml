@@ -1,0 +1,44 @@
+﻿@model RS1_2020_01_30.ViewModels.TakmicenjeDodajVM
+
+@{
+    ViewData["Title"] = "Dodaj";
+}
+
+
+
+<h4>Dodavanje takmičenja</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="Takmicenje" asp-action="Snimi">
+            <input asp-for="SkolaId" value="@Model.SkolaId" hidden />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Skola" class="control-label">Škola:</label>
+                <input asp-for="Skola" class="form-control" readonly/>
+                <span asp-validation-for="Skola" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Predmet" class="control-label"></label>
+                <select asp-for="Predmet" asp-items="@Model.Predmeti" class="form-control">Predmet:</select>
+                <span asp-validation-for="Predmet" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Razred" class="control-label"></label>
+                <select asp-for="Razred" asp-items="@Model.Razredi" class="form-control">Razred:</select>
+                <span asp-validation-for="Razred" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Datum" class="control-label">Datum:</label>
+                <input asp-for="Datum" type="date" class="form-control" />
+                <span asp-validation-for="Datum" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Snimi" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+

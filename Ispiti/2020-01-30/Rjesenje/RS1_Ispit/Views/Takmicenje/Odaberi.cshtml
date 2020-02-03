@@ -1,0 +1,43 @@
+﻿@model RS1_2020_01_30.ViewModels.TakmicenjeOdaberiVM
+@{
+    ViewData["Title"] = "Odaberi";
+
+}
+<div style="margin-top: 20px">
+    <label class="control-label">Škola domaćin: </label> @Model.Skola<br />
+    <label class="control-label">Razred: </label> @Model.Razred<br />
+</div>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <td>Takmičenje ID</td>
+                <td>Predmet</td>
+                <td>Razred</td>
+                <td>Datum</td>
+                <td>Broj učesnika koji nisu pristupili</td>
+                <td>Najbolji učesnik (Škola | Odjeljenje | Ime i prezime)</td>
+                <td>Akcija</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var Row in Model.Rows)
+            {
+                <tr>
+                    <td>@Row.TakmicenjeId</td>
+                    <td>@Row.Predmet</td>
+                    <td>@Row.Razred</td>
+                    <td>@Row.Datum</td>
+                    <td>@Row.BrojUcesnikaKojiNisuPristupili</td>
+                    <td>@Row.NajboljiUcesnikSkola | @Row.NajboljiUcesnikOdjeljenje | @Row.NajboljiUcesnikImePrezime</td>
+                    <td><a asp-controller="Takmicenje" asp-action="Rezultati" asp-route-id="@Row.TakmicenjeId">Rezultati</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div>
+    <a class="btn btn-default" asp-controller="Takmicenje" asp-action="Dodaj" asp-route-id="@Model.SkolaId">Dodaj</a>
+</div>
+
+

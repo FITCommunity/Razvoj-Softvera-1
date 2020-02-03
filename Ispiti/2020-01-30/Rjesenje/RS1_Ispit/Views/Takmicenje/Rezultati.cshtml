@@ -1,0 +1,51 @@
+﻿@model RS1_2020_01_30.ViewModels.TakmicenjeRezultatiVM
+@{
+    ViewData["Title"] = "Rezultati";
+}
+
+<h2>Rezultati takmičenja</h2>
+<hr />
+<div class="row">
+    <div>
+        <form asp-controller="Takmicenje" asp-action="Dodaj">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="SkolaId" value="@Model.SkolaId" hidden />
+            <input asp-for="Razred" value="@Model.Razred" hidden />
+            <div class="form-group">
+                <label asp-for="Skola" class="control-label">Škola</label>
+                <input asp-for="Skola" value="@Model.Skola" class="form-control" readonly>
+                <span asp-validation-for="SkolaId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Predmet" class="control-label">Predmet</label>
+                <input asp-for="Predmet" value="@Model.Predmet" class="form-control" readonly />
+                <span asp-validation-for="Razred" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Razred" class="control-label">Razred</label>
+                <input asp-for="Razred" value="@Model.Razred" class="form-control" readonly />
+                <span asp-validation-for="Razred" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Datum" class="control-label">Datum</label>
+                <input asp-for="Datum" value="@Model.Datum" class="form-control" readonly />
+                <span asp-validation-for="Razred" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <a class="btn btn-default" asp-controller="Takmicenje" asp-action="Zakljucaj" asp-route-id="@Model.TakmicenjeId">Zaključaj</a>
+            </div>
+            <div id="AjaxDiv" class="form-group">
+
+            </div>
+            <div class="form-group">
+                <a class="btn btn-default" asp-controller="Takmicenje" asp-action="Dodaj" asp-route-id="@Model.SkolaId">Novo takmičenje</a>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    $.get("/AjaxStavke/Index?id=@Model.TakmicenjeId", function (result) {
+        $("#AjaxDiv").html(result);        
+    });
+</script>
+
