@@ -3,62 +3,99 @@
     Layout = null;
 }
 
-    <table class="table">
-        <thead>
+<table class="table">
+    <thead>
+        <tr>
+            <td>Odjeljenje</td>
+            <td>Broj u dnevniku</td>
+            <td>Pristupio</td>
+            <td>Rezultat bodovi(Max 100)</td>
+            <td>Akcija</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var Row in Model.Rows)
+        {
             <tr>
-                <td>Odjeljenje</td>
-                <td>Broj u dnevniku</td>
-                <td>Pristupio</td>
-                <td>Rezultat bodovi(Max 100)</td>
-                <td>Akcija</td>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach(var Row in Model.Rows)
-            {
-                <tr>
-                    <td>@Row.Odjeljenje</td>
-                    <td>@Row.BrojUDnevniku</td>
-                    
+                <td>@Row.Odjeljenje</td>
+                <td>@Row.BrojUDnevniku</td>
+                @if (Model.IsZakljucano)
+                {
+                    @if (Row.IsPristupio)
+                    {
+                        <td><a class="btn btn-success">DA</a></td>
+                        <td>@Row.Bodovi</td>
+                        <td>Uredi</td>
+                    }
+                    else
+                    {
+                        <td><a class="btn btn-danger">NE</a></td>
+                        <td>X</td>
+                        <td></td>
+                    }
+                }
+                else
+                {
                     @if (Row.IsPristupio)
                     {
                         <td>
-                            <a 
-                               class="btn btn-success" 
-                               asp-controller="Takmicenje" 
-                               asp-action="UcenikNijePristupio" 
-                               asp-route-id="@Row.TakmicenjeUcesnikId">DA
+                            <a class="btn btn-success"
+                               asp-controller="Takmicenje"
+                               asp-action="UcenikNijePristupio"
+                               asp-route-id="@Row.TakmicenjeUcesnikId">
+                                DA
                             </a>
                         </td>
                         <td><input class="Bodovi" id="@Row.TakmicenjeUcesnikId" type="number" value="@Row.Bodovi" /></td>
                         <td>
-                            <button id="@Row.TakmicenjeUcesnikId" 
-                                    ajax-poziv="da" 
-                                    ajax-rezultat="AjaxDiv" 
-                                    ajax-url="/AjaxStavke/Uredi?id=@Row.TakmicenjeUcesnikId">Uredi
-                            </button>
+                            <a asp-route-id="@Row.TakmicenjeUcesnikId"
+                               asp-controller="AjaxStavke"
+                               asp-action="Uredi"
+                               ajax-poziv="da"
+                               ajax-rezultat="AjaxDiv"
+                               ajax-url="/AjaxStavke/Uredi?id=@Row.TakmicenjeUcesnikId">
+                                Uredi
+                            </a>
                         </td>
 
                     }
                     else
                     {
                         <td>
-                            <a 
-                               class="btn btn-danger" 
-                               asp-controller="Takmicenje" 
-                               asp-action="UcenikJePristupio" 
-                               asp-route-id="@Row.TakmicenjeUcesnikId">NE
+                            <a class="btn btn-danger"
+                               asp-controller="Takmicenje"
+                               asp-action="UcenikJePristupio"
+                               asp-route-id="@Row.TakmicenjeUcesnikId">
+                                NE
                             </a>
                         </td>
                         <td>X</td>
                         <td></td>
-                        
+
                     }
-                    
-                </tr>
-            }
-        </tbody>
-    </table>
+                }
+
+
+            </tr>
+        }
+    </tbody>
+</table>
+@if (Model.IsZakljucano)
+{
+    <button class="btn btn-default">Dodaj učesnika</button>
+}
+else
+{
+    <button class="btn btn-default"
+            asp-route-id="@Model.TakmicenjeId"
+            asp-controller="AjaxStavke"
+            asp-action="Dodaj"
+            ajax-poziv="da"
+            ajax-rezultat="AjaxDiv"
+            ajax-url="/AjaxStavke/Dodaj?id=@Model.TakmicenjeId">
+        Dodaj učesnika
+    </button>
+}
 <script>
     function UpdateBodovi() {
         $("input.Bodovi").focusout(function (e, status) {
@@ -68,7 +105,7 @@
             if (bodovi >= 0 && bodovi <= 100) {
                 $.post("/AjaxStavke/UpdateBodovi?id=" + id + "&bodovi=" + bodovi);
             }
-            
+
         });
     }
 

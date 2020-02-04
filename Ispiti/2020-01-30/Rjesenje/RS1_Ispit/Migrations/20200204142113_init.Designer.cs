@@ -10,7 +10,7 @@ using RS1_2020_01_30.EF;
 namespace RS1_2020_01_30.Migrations
 {
     [DbContext(typeof(MojContext))]
-    [Migration("20200203095004_init")]
+    [Migration("20200204142113_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -185,7 +185,7 @@ namespace RS1_2020_01_30.Migrations
 
                     b.Property<DateTime>("Datum");
 
-                    b.Property<bool>("IsEditable");
+                    b.Property<bool>("IsZakljucano");
 
                     b.Property<int>("PredmetId");
 

@@ -14,6 +14,6 @@ namespace RS1_2020_01_30.EntityModels
         public Predmet Predmet { get; set; }
         public int Razred { get; set; }
         public DateTime Datum { get; set; }
-        public bool IsEditable { get; set; }
+        public bool IsZakljucano { get; set; }
     }
 }

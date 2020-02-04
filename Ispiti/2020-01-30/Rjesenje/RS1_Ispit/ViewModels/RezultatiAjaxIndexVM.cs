@@ -8,7 +8,7 @@ namespace RS1_2020_01_30.ViewModels
     public class RezultatiAjaxIndexVM
     {
         public int TakmicenjeId { get; set; }
-
+        public bool IsZakljucano { get; set; }
         public List<Row> Rows { get; set; }
         public class Row
         {

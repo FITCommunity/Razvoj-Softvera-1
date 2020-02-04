@@ -1,7 +1,23 @@
-﻿
+﻿@model RS1_2020_01_30.ViewModels.AjaxRezultatiUrediDodajVM
 @{
     ViewData["Title"] = "UrediDodaj";
 }
 
-<h2>UrediDodaj</h2>
-
+    <div>
+        <form asp-controller="AjaxStavke" asp-action="Snimi">
+            <input asp-for="TakmicenjeId" value="@Model.TakmicenjeId" hidden />
+            <div class="form-group">
+                <label asp-for="UcesnikId" class="control-label"></label>
+                <select asp-for="UcesnikId" asp-items="@Model.Ucesnici" class="form-control"></select>
+                <span asp-validation-for="UcesnikId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bodovi" class="control-label">Bodovi:</label>
+                <input asp-for="Bodovi" class="form-control" value="@Model.Bodovi"/>
+                <span asp-validation-for="Bodovi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Snimi" class="btn btn-default" />
+            </div>
+        </form>
+    </div>

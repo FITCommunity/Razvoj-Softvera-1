@@ -18,7 +18,7 @@ namespace RS1_2020_01_30.Migrations
                     PredmetId = table.Column<int>(nullable: false),
                     Razred = table.Column<int>(nullable: false),
                     Datum = table.Column<DateTime>(nullable: false),
-                    IsEditable = table.Column<bool>(nullable: false)
+                    IsZakljucano = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {

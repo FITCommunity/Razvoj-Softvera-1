@@ -14,6 +14,6 @@ namespace RS1_2020_01_30.ViewModels
         public string Predmet { get; set; }
         public int Razred { get; set; }
         public string Datum { get; set; }
-        public bool Zakljucan { get; set; }
+        
     }
 }

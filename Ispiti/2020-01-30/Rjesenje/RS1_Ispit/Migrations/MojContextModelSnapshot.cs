@@ -183,7 +183,7 @@ namespace RS1_2020_01_30.Migrations
 
                     b.Property<DateTime>("Datum");
 
-                    b.Property<bool>("IsEditable");
+                    b.Property<bool>("IsZakljucano");
 
                     b.Property<int>("PredmetId");
 

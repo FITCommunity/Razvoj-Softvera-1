@@ -36,16 +36,18 @@ namespace RS1_2020_01_30.Controllers
                     .OrderBy(i => i.Text)
                     .ToList(),
                 Razredi = Razredi
-                    .ConvertAll(
-                    i =>
-                    {
-                        return new SelectListItem()
+                    .ConvertAll
+                    (
+                        i =>
                         {
-                            Text = i.ToString(),
-                            Value = i.ToString(),
-                            Selected = false
-                        };
-                    })
+                            return new SelectListItem()
+                            {
+                                Text = i,
+                                Value = i,
+                                Selected = false
+                            };
+                        }
+                    )
 
             };
             return View(model);
@@ -54,13 +56,17 @@ namespace RS1_2020_01_30.Controllers
         public IActionResult Odaberi(TakmicenjeIndexVM model)
         {
             var skola = ctx.Skola.Find(model.SkolaId);
+
             var modelOdaberi = new TakmicenjeOdaberiVM
             {
                 SkolaId = skola.Id,
                 Skola = skola.Naziv,
                 Razred = model.Razred,
                 Rows = ctx.Takmicenje
-                    .Where(i => i.Skola.Id == model.SkolaId)
+                    .Where
+                    (
+                        i => i.Skola.Id == model.SkolaId                   
+                    )
                     .Select
                     (
                         i => new TakmicenjeOdaberiVM.Row
@@ -82,6 +88,11 @@ namespace RS1_2020_01_30.Controllers
                     .ToList()
             };
 
+            if(model.Razred != null)
+            {
+                modelOdaberi.Rows = modelOdaberi.Rows.Where(i => i.Razred.ToString() == model.Razred).ToList();
+            }
+
             foreach (var Row in modelOdaberi.Rows)
             {
                 var Najbolji = ctx.TakmicenjeUcesnik
@@ -97,7 +108,7 @@ namespace RS1_2020_01_30.Controllers
                     Row.NajboljiUcesnikId = Najbolji.OdjeljenjeStavka.Ucenik.Id;
                     Row.NajboljiUcesnikImePrezime = Najbolji.OdjeljenjeStavka.Ucenik.ImePrezime;
                     Row.NajboljiUcesnikOdjeljenje = Najbolji.OdjeljenjeStavka.Odjeljenje.Oznaka;
-                    Row.NajboljiUcesnikOdjeljenje = Najbolji.OdjeljenjeStavka.Odjeljenje.Skola.Naziv;
+                    Row.NajboljiUcesnikSkola = Najbolji.OdjeljenjeStavka.Odjeljenje.Skola.Naziv;
                 }
 
             }
@@ -108,7 +119,7 @@ namespace RS1_2020_01_30.Controllers
         public IActionResult Dodaj(int Id)
         {
             var skola = ctx.Skola.Find(Id);
-            var Razredi = new List<string> { "1", "2", "3", "4" };
+            var Razredi = new List<int> { 1, 2, 3, 4 };
             var model = new TakmicenjeDodajVM
             {
                 SkolaId = Id,
@@ -155,7 +166,7 @@ namespace RS1_2020_01_30.Controllers
                 PredmetId = Predmet.Id,
                 Razred = model.Razred,
                 Datum = model.Datum,
-                IsEditable = true
+                IsZakljucano = false
             };
 
             ctx.Add(Takmicenje);
@@ -229,8 +240,8 @@ namespace RS1_2020_01_30.Controllers
                 PredmetId = Takmicenje.Predmet.Id,
                 Predmet = Takmicenje.Predmet.Naziv,
                 Razred = Takmicenje.Razred,
-                Datum = Takmicenje.Datum.ToString("dd/MM/yyyy"),
-                Zakljucan = Takmicenje.IsEditable
+                Datum = Takmicenje.Datum.ToString("dd/MM/yyyy")
+                
             };
 
             return View(model);
@@ -239,9 +250,9 @@ namespace RS1_2020_01_30.Controllers
         public IActionResult Zakljucaj(int id)
         {
             var Takmicenje = ctx.Takmicenje.Find(id);
-            if(Takmicenje.IsEditable)
+            if(!Takmicenje.IsZakljucano)
             {
-                Takmicenje.IsEditable = false;
+                Takmicenje.IsZakljucano = true;
                 ctx.SaveChanges();
             }
             return Redirect("/Takmicenje/Rezultati/" + id);

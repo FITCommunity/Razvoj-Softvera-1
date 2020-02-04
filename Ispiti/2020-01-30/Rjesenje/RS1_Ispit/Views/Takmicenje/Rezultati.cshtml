@@ -34,13 +34,13 @@
             <div class="form-group">
                 <a class="btn btn-default" asp-controller="Takmicenje" asp-action="Zakljucaj" asp-route-id="@Model.TakmicenjeId">Zaključaj</a>
             </div>
-            <div id="AjaxDiv" class="form-group">
-
-            </div>
-            <div class="form-group">
-                <a class="btn btn-default" asp-controller="Takmicenje" asp-action="Dodaj" asp-route-id="@Model.SkolaId">Novo takmičenje</a>
-            </div>
         </form>
+    </div>
+    <div id="AjaxDiv" class="form-group">
+
+    </div>
+    <div class="form-group">
+        <a class="btn btn-default" asp-controller="Takmicenje" asp-action="Dodaj" asp-route-id="@Model.SkolaId">Novo takmičenje</a>
     </div>
 </div>
 <script>
