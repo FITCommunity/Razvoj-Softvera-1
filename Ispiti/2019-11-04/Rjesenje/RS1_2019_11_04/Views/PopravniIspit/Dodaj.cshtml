@@ -1,0 +1,35 @@
+﻿@model RS1_2019_11_04.ViewModels.PopravniIspitDodajVM
+@{
+    ViewData["Title"] = "Dodaj";
+}
+
+<div>
+    <h2>Dodavanje popravnog ispita</h2>
+    <form asp-controller="PopravniIspit" asp-action="Snimi">
+        <input asp-for="PredmetId" value="@Model.PredmetId" hidden />
+        <div class="form-group">
+            <label class="control-label" asp-for="Predmet">Predmet:</label>
+            <input class="form-control" asp-for="Predmet" value="@Model.Predmet" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" asp-for="Razred">Razred:</label>
+            <input class="form-control" asp-for="Razred" value="@Model.Razred" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" asp-for="DatumIspita">Datum ispita:</label>
+            <input class="form-control" type="date" asp-for="DatumIspita" value="@Model.DatumIspita" />
+        </div>
+        <div class="form-group">
+            <label class="control-label" asp-for="SkolaId">Škola:</label>
+            <select class="form-control" asp-for="SkolaId" asp-items="@Model.Skole"></select>
+        </div>
+        <div class="form-group">
+            <label class="control-label" asp-for="SkolskaGodinaId">Školska godina:</label>
+            <select class="form-control" asp-for="SkolskaGodinaId" asp-items="@Model.SkolskeGodine"></select>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Snimi" />
+        </div>
+    </form>
+</div>
+

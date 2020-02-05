@@ -1,0 +1,27 @@
+﻿@model RS1_2019_11_04.ViewModels.PopravniIspitIndexVM
+@{
+    ViewData["Title"] = "Index";
+}
+
+    <div style="margin-top: 20px;">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <td>Razred</td>
+                    <td>Predmet</td>
+                    <td>Akcija</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var Row in Model.Rows)
+                {
+                    <tr>
+                        <td>@Row.Razred</td>
+                        <td>@Row.Predmet</td>
+                        <td><a asp-controller="PopravniIspit" asp-action="Odaberi" asp-route-id="@Row.PredmetId">Odaberi</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+

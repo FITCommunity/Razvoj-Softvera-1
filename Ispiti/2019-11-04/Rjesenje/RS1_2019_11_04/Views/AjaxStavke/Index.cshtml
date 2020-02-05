@@ -1,0 +1,80 @@
+﻿@model RS1_2019_11_04.ViewModels.AjaxStavkeRezultatiVM
+@{
+    ViewData["Title"] = "Index";
+}
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <td>Učenik</td>
+            <td>Odjeljenje</td>
+            <td>Broj u dnevniku</td>
+            <td>Pristupio ispitu</td>
+            <td>Bodovi</td>
+            <td>Akcija</td>
+        </tr>
+    </thead>
+    <tbody>
+        @for(int i = 1; i <= Model.Rows.Count(); i++)
+        {
+            <tr>
+                <td>@i. @Model.Rows[i - 1].UcenikImePrezime</td>
+                <td>@Model.Rows[i - 1].Odjeljenje</td>
+                <td>@Model.Rows[i - 1].BrojUDnevniku</td>
+                @if (Model.Rows[i - 1].IsPristupio == true)
+                {
+                    <td><a class="btn btn-success" 
+                           asp-controller="PopravniIspit" 
+                           asp-action="UcenikJeOdsutan" 
+                           asp-route-id="@Model.Rows[i - 1].StavkaPopravniIspitId">DA</a>
+                    </td>
+                    <td><input class="Bodovi" type="number" value="@Model.Rows[i - 1].Bodovi" id="@Model.Rows[i - 1].StavkaPopravniIspitId" /></td>
+                    <td>
+                        <a asp-route-id="@Model.Rows[i - 1].StavkaPopravniIspitId"
+                           asp-controller="AjaxStavke"
+                           asp-action="Uredi"
+                           ajax-poziv="da"
+                           ajax-rezultat="AjaxDiv"
+                           ajax-url="/AjaxStavke/Uredi?id=@Model.Rows[i - 1].StavkaPopravniIspitId">Uredi</a>
+                    </td>
+                }
+                else if (Model.Rows[i - 1].IsPristupio == false)
+                {
+                    <td><a class="btn btn-danger"
+                           asp-controller="PopravniIspit" 
+                           asp-action="UcenikJePrisutan" 
+                           asp-route-id="@Model.Rows[i - 1].StavkaPopravniIspitId">NE</a>
+                    </td>
+                    <td>X</td>
+                    <td></td>
+                }
+                else
+                {
+                    <td><p style="color: red">Nema pravno pristupa</p></td>
+                    <td>@Model.Rows[i - 1].Bodovi</td>
+                    <td></td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+    function UpdateBodovi() {
+        $("input.Bodovi").focusout(function (e, response) {
+            var id = $(this).attr("id");
+            var bodovi = $(this).val();
+
+            if (bodovi >= 0 && bodovi <= 100) {
+                $.post("/AjaxStavke/UpdateBodovi?id=" + id + "&bodovi=" + bodovi);
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        UpdateBodovi();
+    });
+    $(document).ajaxComplete(function () {
+        UpdateBodovi();
+    });
+</script>
+
