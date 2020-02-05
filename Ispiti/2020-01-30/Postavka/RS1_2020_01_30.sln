@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RS1_2020_01_30", "RS1_Ispit\RS1_2020_01_30.csproj", "{531DD70A-6163-4B71-B71B-6E1DF9DC111E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RS1_2020_01_30", "RS1_2020_01_30\RS1_2020_01_30.csproj", "{6A08CACE-B120-4CA5-958C-8F49D8B9D08C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{531DD70A-6163-4B71-B71B-6E1DF9DC111E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{531DD70A-6163-4B71-B71B-6E1DF9DC111E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{531DD70A-6163-4B71-B71B-6E1DF9DC111E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{531DD70A-6163-4B71-B71B-6E1DF9DC111E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A08CACE-B120-4CA5-958C-8F49D8B9D08C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A08CACE-B120-4CA5-958C-8F49D8B9D08C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A08CACE-B120-4CA5-958C-8F49D8B9D08C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A08CACE-B120-4CA5-958C-8F49D8B9D08C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
