@@ -15,12 +15,29 @@
     <tbody>
         @foreach(var Row in Model.Rows)
         {
-            <tr>
-                <td>@Row.Student</td>
+        <tr>
+            <td>@Row.Student</td>
+            @if (Model.IsZakljucan)
+            {
+                @if (Row.IsPristupio)
+                {
+                    <td><a class="btn btn-success">Pristupio</a></td>
+                    <td>@Row.Ocjena</td>
+                }
+                else
+                {
+                    <td><a class="btn btn-danger">Nije pristupip</a></td>
+                    <td></td>
+                }
+
+                <td></td>
+            }
+            else
+            {
                 @if (Row.IsPristupio)
                 {
                     <td><a class="btn btn-success" asp-controller="Ispit" asp-action="TogglePrisustvo" asp-route-id="@Row.StavkaIspitId">Pristupio</a></td>
-                    <td><input class="Ocjena" type="text" value="@Row.Ocjena" /></td>
+                    <td><input id="@Row.StavkaIspitId" class="Ocjena" type="text" value="@Row.Ocjena" /></td>
                     <td>
                         <a asp-controller="AjaxStavke" asp-action="Uredi" asp-route-id="@Row.StavkaIspitId"
                            ajax-poziv="da" ajax-rezultat="AjaxDiv" ajax-url="/AjaxStavke/Uredi/@Row.StavkaIspitId">Uredi</a>
@@ -32,8 +49,25 @@
                     <td></td>
                     <td></td>
                 }
-            </tr>
+            }
+
+        </tr>
         }
     </tbody>
 </table>
+<script>
+    function UpdateOcjena() {
+        $("input.Ocjena").focusout(function () {
+            var id = $(this).attr("id");
+            var ocjena = $(this).val();
+
+            if (ocjena >= 5 && ocjena <= 10) {
+                $.post("/Ispit/UpdateOcjena?id=" + id + "&ocjena=" + ocjena);
+            }
+        });
+    }
+
+    $(document).ready(UpdateOcjena());
+    $(document).ajaxComplete(UpdateOcjena());
+</script>
 

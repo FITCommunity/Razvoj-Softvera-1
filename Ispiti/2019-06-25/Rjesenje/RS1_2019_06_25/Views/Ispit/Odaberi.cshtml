@@ -28,7 +28,7 @@
             @if (Row.Zakljuceno)
             {
                 <td>da</td>
-                <td>Detalji | Zakljucaj</td>
+                <td><a asp-controller="Ispit" asp-action="Detalji" asp-route-id="@Row.IspitId">Detalji</a> | Zakljucaj</td>
             }
             else
             {

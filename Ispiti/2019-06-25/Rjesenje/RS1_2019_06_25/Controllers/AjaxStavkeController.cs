@@ -21,6 +21,7 @@ namespace RS1_2019_06_25.Controllers
         {
             var model = new AjaxStavkeIndexVM
             {
+                IsZakljucan = ctx.Ispit.Find(id).Zakljucano,
                 Rows = ctx.IspitStavka
                     .Where(i => i.IspitId == id)
                     .Select

@@ -136,7 +136,8 @@ namespace RS1_2019_06_25.Controllers
                 Nastavnik = Ispit.Angazovan.Nastavnik.Ime + " " + Ispit.Angazovan.Nastavnik.Prezime,
                 AkademskaGodina = Ispit.Angazovan.AkademskaGodina.Opis,
                 Datum = Ispit.Datum,
-                Opis = Ispit.Napomena
+                Opis = Ispit.Napomena,
+                IsZakljucan = Ispit.Zakljucano
             };
             return View(model);
         }
@@ -147,6 +148,13 @@ namespace RS1_2019_06_25.Controllers
             Stavka.IsPristupio = !Stavka.IsPristupio;
             ctx.SaveChanges();
             return Redirect("/Ispit/Detalji/" + Stavka.IspitId);
+        }
+
+        public void UpdateOcjena(int id, int ocjena)
+        {
+            var Stavka = ctx.IspitStavka.Find(id);
+            Stavka.Ocjena = ocjena;
+            ctx.SaveChanges();
         }
     }
 }

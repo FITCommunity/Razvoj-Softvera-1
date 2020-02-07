@@ -14,5 +14,6 @@ namespace RS1_2019_06_25.ViewModels
         public string AkademskaGodina { get; set; }
         public DateTime Datum { get; set; }
         public string Opis { get; set; }
+        public bool IsZakljucan { get; set; }
     }
 }

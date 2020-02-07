@@ -7,6 +7,7 @@ namespace RS1_2019_06_25.ViewModels
 {
     public class AjaxStavkeIndexVM
     {
+        public bool IsZakljucan { get; set; }
         public List<Row> Rows { get; set; }
         public class Row
         {
