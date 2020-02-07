@@ -20,7 +20,7 @@ namespace RS1_2019_06_25
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<MojContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("cs1")));
+                options.UseSqlServer(Configuration.GetConnectionString("RS1_2019_06_25")));
 
             services.AddMvc();
             services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
