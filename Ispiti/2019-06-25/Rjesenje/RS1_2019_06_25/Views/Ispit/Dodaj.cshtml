@@ -1,0 +1,33 @@
+﻿@model RS1_2019_06_25.ViewModels.IspitDodajVM
+@{
+    ViewData["Title"] = "Dodaj";
+}
+
+<h2 style="margin-top: 30px;">Dodavanje novog ispita</h2>
+<form asp-controller="Ispit" asp-action="Snimi">
+    <input asp-for="AngazovanId" value="@Model.AngazovanId" hidden />
+    <div class="form-group">
+        <label class="control-label">Predmet: </label>
+        <input asp-for="Predmet" value="@Model.Predmet" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label class="control-label">Nastavnik: </label>
+        <input asp-for="Nastavnik" value="@Model.Nastavnik" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label class="control-label">Akademska godina: </label>
+        <input asp-for="AkademskaGodina" value="@Model.AkademskaGodina" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label class="control-label">Datum: </label>
+        <input asp-for="Datum" type="date" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label class="control-label">Opis: </label>
+        <textarea asp-for="Opis" class="form-control"></textarea>
+    </div>
+    <div>
+        <input class="btn btn-default" type="submit" />
+    </div>
+</form>
+

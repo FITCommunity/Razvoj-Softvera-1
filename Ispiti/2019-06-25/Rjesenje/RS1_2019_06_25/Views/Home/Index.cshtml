@@ -1,0 +1,19 @@
+﻿@using RS1_2019_06_25.EntityModels
+
+@{
+    ViewBag.Title = "Index";
+
+
+}
+
+<h2>Home/Index</h2>
+
+
+
+
+<br />
+@Html.ActionLink("Ajax text", "Index", "AjaxTest")
+<br />
+@Html.ActionLink("DB text", "TestDB", "Home") << -- Prije nego što kliknete prepravite <strong> Connection string </strong> i izvršite migraciju.
+<br />
+@Html.ActionLink("Ispit/Index", "Index", "Predmet")

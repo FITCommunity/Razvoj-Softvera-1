@@ -1,0 +1,46 @@
+﻿@model RS1_2019_06_25.ViewModels.IspitOdaberiVM
+@{
+    ViewData["Title"] = "Odaberi";
+}
+
+<div style="margin-top: 30px;">
+    <label>Predmet: @Model.Predmet</label><br />
+    <label>Nastavnik: @Model.Nastavnik</label><br />
+    <label>Akademska godina: @Model.AkademskaGodina</label><br />
+</div>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <td>Datum ispita</td>
+            <td>Broj studenata koji nisu položili</td>
+            <td>Broj prijavljenih studenata</td>
+            <td>Evidentirani rezultati (zaključano)</td>
+            <td>Akcija</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var Row in Model.Rows)
+        {
+        <tr>
+            <td>@Row.Datum</td>
+            <td>@Row.BrojPrijavljenihStudenata</td>
+            <td>@Row.BrojStudenataKojiNisuPolozili</td>
+            @if (Row.Zakljuceno)
+            {
+                <td>da</td>
+                <td>Detalji | Zakljucaj</td>
+            }
+            else
+            {
+                <td>ne</td>
+                <td>
+                    <a asp-controller="Ispit" asp-action="Detalji" asp-route-id="@Row.IspitId">Detalji</a> | 
+                    <a asp-controller="Ispit" asp-action="Zakljucaj" asp-route-id="@Row.IspitId">Zakljucaj</a>
+                </td>
+            }
+        </tr>
+        }
+    </tbody>
+</table>
+<a class="btn btn-default" asp-controller="Ispit" asp-action="Dodaj" asp-route-id="@Model.AngazovanId">Dodaj</a>
+

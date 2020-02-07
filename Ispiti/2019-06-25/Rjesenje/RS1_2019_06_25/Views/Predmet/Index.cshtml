@@ -1,0 +1,37 @@
+﻿@model RS1_2019_06_25.ViewModels.PredmetIndexVM
+@{
+    ViewData["Title"] = "Index";
+}
+
+    <table class="table table-bordered" style="margin-top: 30px;">
+        <thead>
+            <tr>
+                <td>Naziv predmeta</td>
+                <td>Akademska godina</td>
+                <td>Ime i prezime nastavnika</td>
+                <td>Broj održanih časova</td>
+                <td>Broj studenata na predmetu</td>
+                <td>Akcija</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var Group in Model.Rows.GroupBy(i => i.Predmet))
+            {
+                foreach(var Item in Group)
+                {
+                    <tr>
+                        @if(Item == Group.First())
+                        {
+                            <td rowspan="@Group.Count()" style="text-align: center;">@Group.Key</td>
+                        }
+                        <td>@Item.AkademskaGodina</td>
+                        <td>@Item.Nastavnik</td>
+                        <td>@Item.BrojOdrzanihCasova</td>
+                        <td>@Item.BrojStudenataNaPredmetu</td>
+                        <td><a asp-controller="Ispit" asp-action="Odaberi" asp-route-id="@Item.AngazovanId">Odaberi</a></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
