@@ -1,0 +1,43 @@
+﻿@model RS1_2019_12_16.ViewModels.PopravniIspitDodajVM
+@{
+    ViewData["Title"] = "Dodaj";
+}
+
+<h2 style="margin-top: 30px;">Dodavanje popravnog ispita</h2>
+<form asp-controller="PopravniIspit" asp-action="Snimi">
+    <input asp-for="SkolaId" value="@Model.SkolaId" hidden />
+    <input asp-for="SkolskaGodinaId" value="@Model.SkolskaGodinaId" hidden />
+    <input asp-for="PredmetId" value="@Model.PredmetId" hidden />
+    <div class="form-group">
+        <label class="control-label" asp-for="ClanKomisije1Id">1. Član Komisije: </label>
+        <select class="form-control" asp-for="ClanKomisije1Id" asp-items="@Model.Nastavnici"></select>
+    </div>
+    <div class="form-group">
+        <label class="control-label" asp-for="ClanKomisije2Id">2. Član Komisije: </label>
+        <select class="form-control" asp-for="ClanKomisije2Id" asp-items="@Model.Nastavnici"></select>
+    </div>
+    <div class="form-group">
+        <label class="control-label" asp-for="ClanKomisije3Id">3. Član Komisije: </label>
+        <select class="form-control" asp-for="ClanKomisije3Id" asp-items="@Model.Nastavnici"></select>
+    </div>
+    <div class="form-group">
+        <label asp-for="Datum" class="control-label">Datum: </label>
+        <input asp-for="Datum" value="@Model.Datum" type="date" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Skola" class="control-label">Škola: </label>
+        <input asp-for="Skola" value="@Model.Skola" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label asp-for="SkolskaGodina" class="control-label">Školska godina: </label>
+        <input asp-for="SkolskaGodina" value="@Model.SkolskaGodina" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label asp-for="Predmet" class="control-label">Predmet: </label>
+        <input asp-for="Predmet" value="@Model.Predmet" class="form-control" readonly />
+    </div>
+    <div>
+        <input class="btn btn-default" type="submit" value="Snimi" />
+    </div>
+</form>
+
