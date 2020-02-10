@@ -1,0 +1,36 @@
+﻿@model RS1_2019_12_16.ViewModels.PopravniIspitUrediVM
+@{
+    ViewData["Title"] = "Uredi";
+}
+
+<h2 style="margin-top: 30px;">Uređivanje popravnog ispita</h2>
+<form>
+    @{ int i = 0;}
+    @foreach (var Clan in Model.Komisija)
+    {
+        <div class="form-group">
+            <label class="control-label" asp-for="@Model.Komisija">@{++i;} @i. Član Komisije: </label>
+            <input asp-for="Skola" value="@Clan" class="form-control" readonly />
+        </div>
+    }
+    <div class="form-group">
+        <label asp-for="Datum" class="control-label">Datum: </label>
+        <input asp-for="Datum" value="@Model.Datum" type="date" class="form-control" readonly/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Skola" class="control-label">Škola: </label>
+        <input asp-for="Skola" value="@Model.Skola" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label asp-for="SkolskaGodina" class="control-label">Školska godina: </label>
+        <input asp-for="SkolskaGodina" value="@Model.SkolskaGodina" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label asp-for="Predmet" class="control-label">Predmet: </label>
+        <input asp-for="Predmet" value="@Model.Predmet" class="form-control" readonly />
+    </div>
+</form>
+<div id="AjaxDiv">
+
+</div>
+

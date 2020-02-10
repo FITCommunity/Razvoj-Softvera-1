@@ -11,8 +11,8 @@ using System;
 namespace RS1_2019_12_16.Migrations
 {
     [DbContext(typeof(MojContext))]
-    [Migration("20200209191607_init")]
-    partial class init
+    [Migration("20200210090636_manyToManyVeza")]
+    partial class manyToManyVeza
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,20 +43,13 @@ namespace RS1_2019_12_16.Migrations
 
             modelBuilder.Entity("RS1_2019_12_16.EntityModels.Komisija", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("NastanikId");
-
-                    b.Property<int?>("NastavnikId");
-
                     b.Property<int>("PopravniIspitId");
 
-                    b.HasKey("Id");
+                    b.Property<int>("NastavnikId");
+
+                    b.HasKey("PopravniIspitId", "NastavnikId");
 
                     b.HasIndex("NastavnikId");
-
-                    b.HasIndex("PopravniIspitId");
 
                     b.ToTable("Komisija");
                 });
@@ -263,11 +256,12 @@ namespace RS1_2019_12_16.Migrations
             modelBuilder.Entity("RS1_2019_12_16.EntityModels.Komisija", b =>
                 {
                     b.HasOne("RS1_2019_12_16.EntityModels.Nastavnik", "Nastavnik")
-                        .WithMany()
-                        .HasForeignKey("NastavnikId");
+                        .WithMany("Komisija")
+                        .HasForeignKey("NastavnikId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("RS1_2019_12_16.EntityModels.PopravniIspit", "PopravniIspit")
-                        .WithMany()
+                        .WithMany("Komisija")
                         .HasForeignKey("PopravniIspitId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -323,7 +317,7 @@ namespace RS1_2019_12_16.Migrations
                         .HasForeignKey("SkolaId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("RS1_2019_12_16.EntityModels.SkolskaGodina", "GetSkolskaGodina")
+                    b.HasOne("RS1_2019_12_16.EntityModels.SkolskaGodina", "SkolskaGodina")
                         .WithMany()
                         .HasForeignKey("SkolskaGodinaId")
                         .OnDelete(DeleteBehavior.Cascade);

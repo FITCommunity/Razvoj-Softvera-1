@@ -59,13 +59,12 @@ namespace RS1_2019_12_16.Controllers
 
         string GetClanKomisije(int id)
         {
-            //var Nastavnik = ctx.Komisija
-            //    .Include(i => i.Nastavnik)
-            //    .Where(i => i.PopravniIspitId == id)
-            //    .FirstOrDefault();
+            var Komisija = ctx.Komisija
+                .Include(i => i.Nastavnik)
+                .Where(i => i.PopravniIspitId == id)
+                .FirstOrDefault();
 
-            //return Nastavnik != null ? Nastavnik.Nastavnik.Ime + " " + Nastavnik.Nastavnik.Prezime : "N/A";
-            return "N/A";
+            return Komisija != null ? Komisija.Nastavnik.Ime + " " + Komisija.Nastavnik.Prezime : "N/A";
         }
 
         public IActionResult Odaberi(PopravniIspitIndexVM model)
@@ -93,7 +92,6 @@ namespace RS1_2019_12_16.Controllers
                             Datum = i.Datum.ToString("dd/MM/yyyy"),
                             BrojUcenikaNaIspitu = ctx.PopravniIspitStavka.Where(j => j.Id == i.Id).Count(),
                             BrojUcenikaPolozili = ctx.PopravniIspitStavka.Where(j => j.Id == i.Id && j.Bodovi > 50).Count()
-
                         }
                     )
                     .ToList()
@@ -146,7 +144,7 @@ namespace RS1_2019_12_16.Controllers
             {
                 var Clan1 = new Komisija
                 {
-                    NastanikId = model.ClanKomisije1Id,
+                    NastavnikId = model.ClanKomisije1Id,
                     PopravniIspitId = Ispit.Id
                 };
                 ctx.Add(Clan1);
@@ -161,7 +159,7 @@ namespace RS1_2019_12_16.Controllers
             {
                 var Clan2 = new Komisija
                 {
-                    NastanikId = model.ClanKomisije2Id,
+                    NastavnikId = model.ClanKomisije2Id,
                     PopravniIspitId = Ispit.Id
                 };
                 ctx.Add(Clan2);
@@ -176,7 +174,7 @@ namespace RS1_2019_12_16.Controllers
             {
                 var Clan3 = new Komisija
                 {
-                    NastanikId = model.ClanKomisije3Id,
+                    NastavnikId = model.ClanKomisije3Id,
                     PopravniIspitId = Ispit.Id
                 };
                 ctx.Add(Clan3);
@@ -187,7 +185,94 @@ namespace RS1_2019_12_16.Controllers
 
             }
 
+            var Ucenici = ctx.DodjeljenPredmet
+                .Where
+                (
+                    i => i.OdjeljenjeStavka.Odjeljenje.Skola.Id == model.SkolaId &&
+                         i.OdjeljenjeStavka.Odjeljenje.SkolskaGodina.Id == model.SkolskaGodinaId
+                )
+                .ToList();
+
+            foreach(var Ucenik in Ucenici)
+            {
+                var NegativnaOcjena = ctx.DodjeljenPredmet
+                    .Where
+                    (
+                        i => i.PredmetId == model.PredmetId &&
+                             i.OdjeljenjeStavkaId == Ucenik.OdjeljenjeStavkaId &&
+                             i.ZakljucnoKrajGodine == 1
+                    )
+                    .SingleOrDefault();
+
+                var TriNegativneOcjene = ctx.DodjeljenPredmet
+                    .Where
+                    (
+                        i => i.OdjeljenjeStavkaId == Ucenik.OdjeljenjeStavkaId &&
+                             i.ZakljucnoKrajGodine == 1
+                    )
+                    .ToList();
+
+                if(TriNegativneOcjene.Count() >= 3)
+                {
+                    var Stavka = new PopravniIspitStavka
+                    {
+                        OdjeljenjeStavkaId = Ucenik.OdjeljenjeStavkaId,
+                        PopravniIspitId = Ispit.Id,
+                        IsPristupio = null,
+                        Bodovi = 0
+                    };
+
+                    ctx.Add(Stavka);
+                    ctx.SaveChanges();
+                }
+                else if(NegativnaOcjena != null)
+                {
+                    var Stavka = new PopravniIspitStavka
+                    {
+                        OdjeljenjeStavkaId = Ucenik.OdjeljenjeStavkaId,
+                        PopravniIspitId = Ispit.Id,
+                        IsPristupio = false
+                    };
+
+                    ctx.Add(Stavka);
+                    ctx.SaveChanges();
+                }
+            }
+
             return Redirect("/PopravniIspit/Index");
+        }
+
+        public IActionResult Uredi(int id)
+        {
+            var Ispit = ctx.PopravniIspit
+                .Include(i => i.Skola)
+                .Include(i => i.SkolskaGodina)
+                .Include(i => i.Predmet)
+                .Where(i => i.Id == id)
+                .SingleOrDefault();
+
+            var Komisija = ctx.Komisija
+                .Include(i => i.Nastavnik)
+                .Where(i => i.PopravniIspitId == id)
+                .ToList();
+
+            var model = new PopravniIspitUrediVM
+            {
+                PopravniIspitId = id,
+                SkolaId = Ispit.SkolaId,
+                Skola = Ispit.Skola.Naziv,
+                SkolskaGodinaId = Ispit.SkolskaGodinaId,
+                SkolskaGodina = Ispit.SkolskaGodina.Naziv,
+                PredmetId = Ispit.PredmetId,
+                Predmet = Ispit.Predmet.Naziv,
+                Datum = Ispit.Datum.ToString("dd/MM/yyyy")
+            };
+
+            
+            foreach (var Clan in Komisija)
+                model.Komisija.Add(Clan.Nastavnik.Ime + " " + Clan.Nastavnik.Prezime);
+
+            return View(model);
         }
     }
 }

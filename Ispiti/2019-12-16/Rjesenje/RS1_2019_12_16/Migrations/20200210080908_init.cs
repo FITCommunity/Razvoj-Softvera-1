@@ -160,8 +160,7 @@ namespace RS1_2019_12_16.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    NastanikId = table.Column<int>(nullable: false),
-                    NastavnikId = table.Column<int>(nullable: true),
+                    NastavnikId = table.Column<int>(nullable: false),
                     PopravniIspitId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -226,7 +225,7 @@ namespace RS1_2019_12_16.Migrations
                         column: x => x.NastavnikID,
                         principalTable: "Nastavnik",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_PredajePredmet_Odjeljenje_OdjeljenjeID",
                         column: x => x.OdjeljenjeID,
@@ -259,13 +258,13 @@ namespace RS1_2019_12_16.Migrations
                         column: x => x.OdjeljenjeStavkaId,
                         principalTable: "OdjeljenjeStavka",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_DodjeljenPredmet_Predmet_PredmetId",
                         column: x => x.PredmetId,
                         principalTable: "Predmet",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(

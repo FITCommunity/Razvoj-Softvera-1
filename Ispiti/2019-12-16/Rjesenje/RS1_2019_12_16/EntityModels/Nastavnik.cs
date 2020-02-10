@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RS1_2019_12_16.EntityModels
 {
@@ -11,5 +12,8 @@ namespace RS1_2019_12_16.EntityModels
         [ForeignKey(nameof(SkolaID))]
         public virtual Skola Skola { get; set; }
         public int SkolaID { get; set; }
+
+
+        public ICollection<Komisija> Komisija { get; set; }
     }
 }

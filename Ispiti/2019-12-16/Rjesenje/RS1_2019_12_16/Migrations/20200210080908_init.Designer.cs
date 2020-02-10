@@ -11,9 +11,10 @@ using System;
 namespace RS1_2019_12_16.Migrations
 {
     [DbContext(typeof(MojContext))]
-    partial class MojContextModelSnapshot : ModelSnapshot
+    [Migration("20200210080908_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,13 +43,18 @@ namespace RS1_2019_12_16.Migrations
 
             modelBuilder.Entity("RS1_2019_12_16.EntityModels.Komisija", b =>
                 {
-                    b.Property<int>("PopravniIspitId");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("NastavnikId");
 
-                    b.HasKey("PopravniIspitId", "NastavnikId");
+                    b.Property<int>("PopravniIspitId");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("NastavnikId");
+
+                    b.HasIndex("PopravniIspitId");
 
                     b.ToTable("Komisija");
                 });
@@ -255,12 +261,12 @@ namespace RS1_2019_12_16.Migrations
             modelBuilder.Entity("RS1_2019_12_16.EntityModels.Komisija", b =>
                 {
                     b.HasOne("RS1_2019_12_16.EntityModels.Nastavnik", "Nastavnik")
-                        .WithMany("Komisija")
+                        .WithMany()
                         .HasForeignKey("NastavnikId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("RS1_2019_12_16.EntityModels.PopravniIspit", "PopravniIspit")
-                        .WithMany("Komisija")
+                        .WithMany()
                         .HasForeignKey("PopravniIspitId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

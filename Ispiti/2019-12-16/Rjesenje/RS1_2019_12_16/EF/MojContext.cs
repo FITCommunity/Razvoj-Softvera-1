@@ -23,6 +23,17 @@ namespace RS1_2019_12_16.EF
             modelBuilder.Entity<PredajePredmet>().HasOne(x => x.Odjeljenje)
                 .WithMany().OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<Komisija>()
+                .HasKey(x => new { x.PopravniIspitId, x.NastavnikId });
+            modelBuilder.Entity<Komisija>()
+                .HasOne(x => x.PopravniIspit)
+                .WithMany(x => x.Komisija)
+                .HasForeignKey(x => x.PopravniIspitId);
+            modelBuilder.Entity<Komisija>()
+                .HasOne(x => x.Nastavnik)
+                .WithMany(x => x.Komisija)
+                .HasForeignKey(x => x.NastavnikId);
+
         }
 
 
@@ -38,6 +49,6 @@ namespace RS1_2019_12_16.EF
         public DbSet<SkolskaGodina> SkolskaGodina { get; set; }
         public DbSet<PopravniIspit> PopravniIspit { get; set; }
         public DbSet<PopravniIspitStavka> PopravniIspitStavka { get; set; }
-        public DbSet<Komisija> Komisija{ get; set; }
+        public DbSet<Komisija> Komisija { get; set; }
     }
 }
