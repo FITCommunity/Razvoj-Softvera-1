@@ -1,0 +1,18 @@
+﻿@model RS1_2019_12_16.ViewModels.PopravniIspitDodajUcenikaVM
+@{
+    ViewData["Title"] = "DodajUcenika";
+}
+
+    <div style="margin-top: 30px;">
+        <form asp-controller="PopravniIspit" asp-action="SnimiUcenika">
+            <input asp-for="PopravniIspitId" value="@Model.PopravniIspitId" hidden />
+            <div class="form-group">
+                <label class="control-label">Učenik: </label>
+                <select asp-for="OdjeljenjeStavkaId" asp-items="@Model.Ucenici" class="form-control"></select>
+            </div>
+            <div>
+                <input type="submit" value="Snimi" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+

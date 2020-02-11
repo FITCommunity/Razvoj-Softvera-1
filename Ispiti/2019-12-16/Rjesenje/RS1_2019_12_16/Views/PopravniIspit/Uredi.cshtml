@@ -15,7 +15,7 @@
     }
     <div class="form-group">
         <label asp-for="Datum" class="control-label">Datum: </label>
-        <input asp-for="Datum" value="@Model.Datum" type="date" class="form-control" readonly/>
+        <input asp-for="Datum" value="@Model.Datum" type="datetime" class="form-control" readonly/>
     </div>
     <div class="form-group">
         <label asp-for="Skola" class="control-label">Škola: </label>
@@ -33,4 +33,13 @@
 <div id="AjaxDiv">
 
 </div>
+<a class="btn btn-default" asp-controller="PopravniIspit" asp-action="DodajUcenika" asp-route-id="@Model.PopravniIspitId">Dodaj učenika</a><br />
+<a class="btn btn-default" 
+   asp-controller="PopravniIspit" asp-action="Dodaj" 
+   asp-route-skolaId="@Model.SkolaId" asp-route-skolskaGodinaId="@Model.SkolskaGodinaId" asp-route-predmetId="@Model.PredmetId">Dodaj popravni ispit</a>
+<script>
+    $.get("/AjaxStavke/Index/@Model.PopravniIspitId", function (response, status) {
+        $("#AjaxDiv").html(response);        
+    })
+</script>
 

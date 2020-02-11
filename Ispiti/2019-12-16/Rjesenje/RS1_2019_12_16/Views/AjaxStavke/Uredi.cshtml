@@ -1,0 +1,20 @@
+﻿@model RS1_2019_12_16.ViewModels.AjaxStavkaUrediVM
+@{
+    ViewData["Title"] = "Uredi";
+}
+
+    <form asp-controller="AjaxStavke" asp-action="Snimi" ajax-poziv="da" ajax-rezultat="AjaxDiv">
+        <input asp-for="PopravniIspitStavkaId" value="@Model.PopravniIspitStavkaId" hidden />
+        <div class="form-group">
+            <label class="control-label">Učenik: </label>
+            <input class="form-control" asp-for="Ucenik" value="@Model.Ucenik" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label">Bodovi: </label>
+            <input class="form-control" asp-for="Bodovi" value="@Model.Bodovi"  />
+        </div>
+        <div>
+            <input class="btn btn-default" type="submit" value="Snimi"/>
+        </div>
+    </form>
+

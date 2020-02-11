@@ -44,6 +44,7 @@ namespace RS1_2019_12_16.Controllers
                     )
                     .ToList(),
                 Predmeti = ctx.Predmet
+                    .OrderBy(i => i.Id)
                     .Select
                     (
                         i => new SelectListItem
@@ -90,8 +91,8 @@ namespace RS1_2019_12_16.Controllers
                         {
                             PopravniIspitId = i.Id,
                             Datum = i.Datum.ToString("dd/MM/yyyy"),
-                            BrojUcenikaNaIspitu = ctx.PopravniIspitStavka.Where(j => j.Id == i.Id).Count(),
-                            BrojUcenikaPolozili = ctx.PopravniIspitStavka.Where(j => j.Id == i.Id && j.Bodovi > 50).Count()
+                            BrojUcenikaNaIspitu = ctx.PopravniIspitStavka.Where(j => j.PopravniIspitId == i.Id).Count(),
+                            BrojUcenikaPolozili = ctx.PopravniIspitStavka.Where(j => j.PopravniIspitId == i.Id && j.Bodovi > 50).Count()
                         }
                     )
                     .ToList()
@@ -185,11 +186,11 @@ namespace RS1_2019_12_16.Controllers
 
             }
 
-            var Ucenici = ctx.DodjeljenPredmet
+            var Ucenici = ctx.OdjeljenjeStavka
                 .Where
                 (
-                    i => i.OdjeljenjeStavka.Odjeljenje.Skola.Id == model.SkolaId &&
-                         i.OdjeljenjeStavka.Odjeljenje.SkolskaGodina.Id == model.SkolskaGodinaId
+                    i => i.Odjeljenje.Skola.Id == model.SkolaId &&
+                         i.Odjeljenje.SkolskaGodina.Id == model.SkolskaGodinaId
                 )
                 .ToList();
 
@@ -199,15 +200,16 @@ namespace RS1_2019_12_16.Controllers
                     .Where
                     (
                         i => i.PredmetId == model.PredmetId &&
-                             i.OdjeljenjeStavkaId == Ucenik.OdjeljenjeStavkaId &&
+                             i.OdjeljenjeStavkaId == Ucenik.Id &&
                              i.ZakljucnoKrajGodine == 1
                     )
-                    .SingleOrDefault();
+                    .ToList();
+                    
 
                 var TriNegativneOcjene = ctx.DodjeljenPredmet
                     .Where
                     (
-                        i => i.OdjeljenjeStavkaId == Ucenik.OdjeljenjeStavkaId &&
+                        i => i.OdjeljenjeStavkaId == Ucenik.Id &&
                              i.ZakljucnoKrajGodine == 1
                     )
                     .ToList();
@@ -216,7 +218,7 @@ namespace RS1_2019_12_16.Controllers
                 {
                     var Stavka = new PopravniIspitStavka
                     {
-                        OdjeljenjeStavkaId = Ucenik.OdjeljenjeStavkaId,
+                        OdjeljenjeStavkaId = Ucenik.Id,
                         PopravniIspitId = Ispit.Id,
                         IsPristupio = null,
                         Bodovi = 0
@@ -225,11 +227,11 @@ namespace RS1_2019_12_16.Controllers
                     ctx.Add(Stavka);
                     ctx.SaveChanges();
                 }
-                else if(NegativnaOcjena != null)
+                else if(NegativnaOcjena.Any())
                 {
                     var Stavka = new PopravniIspitStavka
                     {
-                        OdjeljenjeStavkaId = Ucenik.OdjeljenjeStavkaId,
+                        OdjeljenjeStavkaId = Ucenik.Id,
                         PopravniIspitId = Ispit.Id,
                         IsPristupio = false
                     };
@@ -273,6 +275,64 @@ namespace RS1_2019_12_16.Controllers
                 model.Komisija.Add(Clan.Nastavnik.Ime + " " + Clan.Nastavnik.Prezime);
 
             return View(model);
+        }
+
+        public IActionResult TogglePrisustvo(int id)
+        {
+            var Stavka = ctx.PopravniIspitStavka.Find(id);
+            Stavka.IsPristupio = !Stavka.IsPristupio;
+            ctx.SaveChanges();
+            return Redirect("/PopravniIspit/Uredi?id=" + Stavka.PopravniIspitId);
+        }
+
+        public IActionResult UcenikJePristupio(int id)
+        {
+            return TogglePrisustvo(id);
+        }
+
+        public IActionResult UcenikNijePristupio(int id)
+        {
+            return TogglePrisustvo(id);
+        }
+
+        public IActionResult DodajUcenika(int id)
+        {
+            var naIspitu = ctx.PopravniIspitStavka
+                .Include(i => i.OdjeljenjeStavka)
+                .Where(i => i.PopravniIspitId == id)
+                .ToList();
+
+            var model = new PopravniIspitDodajUcenikaVM
+            {
+                PopravniIspitId = id,
+                Ucenici = ctx.OdjeljenjeStavka
+                    .Include(i => i.Ucenik)
+                    .Where(i => !naIspitu.Any(j => j.OdjeljenjeStavkaId == i.Id))
+                    .Select
+                    (
+                        i => new SelectListItem
+                        {
+                            Value = i.Id.ToString(),
+                            Text = i.Ucenik.ImePrezime
+                        }
+                    )
+                    .ToList()
+            };
+            return View(model);
+        }
+
+        public IActionResult SnimiUcenika(PopravniIspitDodajUcenikaVM model)
+        {
+            var Stavka = new PopravniIspitStavka
+            {
+                PopravniIspitId = model.PopravniIspitId,
+                OdjeljenjeStavkaId = model.OdjeljenjeStavkaId,
+                IsPristupio = false,
+                Bodovi = 0
+            };
+            ctx.Add(Stavka);
+            ctx.SaveChanges();
+            return Redirect("Uredi/" + Stavka.PopravniIspitId);
         }
     }
 }

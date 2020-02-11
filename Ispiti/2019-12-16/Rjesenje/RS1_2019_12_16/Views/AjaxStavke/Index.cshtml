@@ -1,0 +1,56 @@
+﻿@model RS1_2019_12_16.ViewModels.AjaxStavkeIndexVM
+@{
+    ViewData["Title"] = "Index";
+}
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Učenik</th>
+            <th>Odjeljenje</th>
+            <th>Broj u dnevniku</th>
+            <th>Pristupio ispitu</th>
+            <th>Bodovi</th>
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ int i = 0;}
+        @foreach (var Row in Model.Rows)
+        {
+            ++i;
+            <tr>
+                <td>@i  @Row.Ucenik</td>
+                <td>@Row.Odjeljenje</td>
+                <td>@Row.BrojUDnevniku</td>
+                @if (Row.IsPristupio == true)
+                {
+                    <td>
+                        <a class="btn btn-success"
+                           asp-controller="PopravniIspit" asp-action="UcenikNijePristupio" asp-route-id="@Row.PopravniIspitStavkaId">DA</a>
+                    </td>
+                    <td>@Row.Bodovi</td>
+                    <td><a asp-controller="AjaxStavke" asp-action="Uredi" asp-route-id="@Row.PopravniIspitStavkaId"
+                           ajax-poziv="da" ajax-rezultat="AjaxDiv" ajax-url="/AjaxStavke/Uredi?id=@Row.PopravniIspitStavkaId">Uredi</a></td>
+                }
+                else if (Row.IsPristupio == false)
+                {
+                    <td>
+                        <a class="btn btn-danger"
+                           asp-controller="PopravniIspit" asp-action="UcenikJePristupio" asp-route-id="@Row.PopravniIspitStavkaId">NE</a>
+                    </td>
+                    <td>X</td>
+                    <td></td>
+                }
+                else
+                {
+                    <td><p style="color:red;">Nema pravo na popravni ispit</p></td>
+                    <td>0</td>
+                    <td></td>
+                }
+            </tr>
+
+        }
+    </tbody>
+</table>
+
