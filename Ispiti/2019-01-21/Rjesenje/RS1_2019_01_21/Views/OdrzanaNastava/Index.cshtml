@@ -1,0 +1,27 @@
+﻿@model RS1_2019_01_21.ViewModels.OdrzanaNastavaIndexVM
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div style="margin-top: 30px;">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Škola</th>
+                <th>Ime i prezime nastavnika</th>
+                <th>Akcija</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var Row in Model.Rows)
+            {
+                <tr>
+                    <td>@Row.Skola</td>
+                    <td>@Row.Nastavnik</td>
+                    <td><a asp-controller="OdrzanaNastava" asp-action="Odaberi" asp-route-id="@Row.NastavnikId">Uredi</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

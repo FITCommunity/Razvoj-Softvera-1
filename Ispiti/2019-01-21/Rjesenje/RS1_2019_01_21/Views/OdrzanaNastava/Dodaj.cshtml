@@ -1,0 +1,35 @@
+﻿@model RS1_2019_01_21.ViewModels.OdrzanaNastavaDodajVM
+@{
+    ViewData["Title"] = "Dodaj";
+}
+
+<h2 style="margin-top: 30px;">Dodavanje maturskog ispita</h2>
+<form asp-controller="OdrzanaNastava" asp-action="Snimi">
+    <input asp-for="@Model.NastavnikId" hidden />
+    <input asp-for="@Model.SkolskaGodinaId" hidden />
+
+    <div class="form-group">
+        <label class="control-label">Škola</label>
+        <select asp-for="SkolaId" asp-items="@Model.Skole" class="form-control"></select>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Nastavnik</label>
+        <input asp-for="Nastavnik" value="@Model.Nastavnik" class="form-control" readonly/>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Školska godina</label>
+        <input asp-for="SkolskaGodina" value="@Model.SkolskaGodina" class="form-control" readonly/>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Datum</label>
+        <input asp-for="Datum" value="@Model.Datum" type="datetime" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Predmet</label>
+        <select asp-for="PredmetId" asp-items="@Model.Predmeti" class="form-control"></select>
+    </div>
+    <div>
+        <input type="submit" class="btn btn-default" value="Snimi" /> 
+    </div>
+</form>
+

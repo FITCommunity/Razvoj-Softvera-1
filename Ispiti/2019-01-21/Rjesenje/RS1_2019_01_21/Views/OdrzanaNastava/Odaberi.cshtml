@@ -1,0 +1,36 @@
+﻿@model RS1_2019_01_21.ViewModels.OdrzanaNastavaOdaberiVM
+@{
+    ViewData["Title"] = "Odaberi";
+}
+
+<h2 style="margin-top: 30px">@Model.Nastavnik</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Datum</th>
+            <th>Škola</th>
+            <th>Predmet</th>
+            <th>Nisu pristupili učenici</th>
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var Row in Model.Rows)
+        {
+            <tr>
+                <td>@Row.Datum</td>
+                <td>@Row.Skola</td>
+                <td>@Row.Predmet</td>
+                <td>
+                    @foreach(var Ucenik in Row.Ucenici)
+                    {
+                        <span>Ucenik, </span>
+                    }
+                </td>
+                <td><a asp-controller="OdrznaNastava" asp-action="Odaberi" asp-route-id="@Row.MaturskiIspitId">Uredi</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a class="btn btn-default" asp-controller="OdrzanaNastava" asp-action="Dodaj" asp-route-id="@Model.NastavnikId">Dodaj</a>
+
