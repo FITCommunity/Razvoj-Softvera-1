@@ -159,5 +159,33 @@ namespace RS1_2019_01_21.Controllers
             ctx.SaveChanges();
             return Redirect("Odaberi/" + model.NastavnikId);
         }
+
+        public IActionResult Uredi(int id)
+        {
+            var Ispit = ctx.MaturskiIspit
+                .Include(i => i.Predmet)
+                .Where(i => i.Id == id)
+                .SingleOrDefault();
+
+            var model = new OdrzanaNastavaUrediVM
+            {
+                MaturskiIspitId = id,
+                Datum = Ispit.Datum.ToString("dd/MM/yyyy"),
+                Predmet = Ispit.Predmet.Naziv,
+                Napomena = Ispit.Napomena
+            };
+            return View(model);
+        }
+
+        public IActionResult ToggleIsPristupio(int id)
+        {
+            var Stavka = ctx.MaturskiIspitStavka.Find(id);
+            Stavka.IsPristupio = !Stavka.IsPristupio;
+            ctx.SaveChanges();
+            return Redirect("/OdrzanaNastava/Uredi/" + Stavka.MaturskiIspitId);
+        }
+
+        public IActionResult UcenikJePristupio(int id) => ToggleIsPristupio(id);
+        public IActionResult UcenikNijePristupio(int id) => ToggleIsPristupio(id);
     }
 }

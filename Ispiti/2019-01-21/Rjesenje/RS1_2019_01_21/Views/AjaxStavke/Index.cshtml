@@ -1,0 +1,49 @@
+﻿@model RS1_2019_01_21.ViewModels.AjaxStavkeIndexVM
+@{
+    ViewData["Title"] = "Index";
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Učenik</th>
+            <th>Prosjek ocjena</th>
+            <th>Pristupio ispitu</th>
+            <th>Rezultat maturskog (max 100)</th>
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var Row in Model.Rows)
+        {
+            <tr>
+                <td>@Row.Ucenik</td>
+                <td>@Row.Prosjek</td>
+                @if (Row.IsPristupio)
+                {
+                    <td>
+                        <a asp-controller="OdrzanaNastava" asp-action="UcenikNijePristupio" asp-route-id="@Row.MaturskiIspitStavkaId"
+                           class="btn btn-success">DA</a>
+                    </td>
+                    <td>
+                        <input class="bodovi" type="text" value="@Row.Bodovi" />
+                        <a class="btn btn-default">Snimi</a>
+                    </td>
+                    <td>
+                        <a asp-controller="AjaxStavke" asp-action="Uredi" asp-route-id="@Row.MaturskiIspitStavkaId">Uredi</a>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <a asp-controller="OdrzanaNastava" asp-action="UcenikJePristupio" asp-route-id="@Row.MaturskiIspitStavkaId"
+                           class="btn btn-danger">NE</a>
+                    </td>
+                    <td>X</td>
+                    <td></td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+

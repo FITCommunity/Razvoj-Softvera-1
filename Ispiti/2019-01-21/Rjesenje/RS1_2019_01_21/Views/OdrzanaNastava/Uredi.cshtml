@@ -1,0 +1,25 @@
+﻿@model RS1_2019_01_21.ViewModels.OdrzanaNastavaUrediVM
+@{
+    ViewData["Title"] = "Uredi";
+}
+
+<h2 style="margin-top: 30px;">Uređivanje maturskog ispita</h2>
+<div>
+    <div class="form-group">
+        <label class="control-label">Datum</label>
+        <input class="form-control" asp-for="Datum" type="datetime" readonly />
+    </div>
+    <div class="form-group">
+        <label class="control-label">Predmet</label>
+        <input class="form-control" asp-for="Predmet" readonly />
+    </div>
+</div>
+<div id="AjaxDiv">
+
+</div>
+<script>
+    $.get("/AjaxStavke/Index?id=@Model.MaturskiIspitId", function (response) {
+        $("#AjaxDiv").html(response);
+    })
+</script>
+
