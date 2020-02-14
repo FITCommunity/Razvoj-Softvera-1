@@ -26,11 +26,12 @@
                            class="btn btn-success">DA</a>
                     </td>
                     <td>
-                        <input class="bodovi" type="text" value="@Row.Bodovi" />
-                        <a class="btn btn-default">Snimi</a>
+                        <input class="bodovi" id="@Row.MaturskiIspitStavkaId" type="text" value="@Row.Bodovi" />
+                        <a class="btn btn-default snimi-bodove">Snimi</a>
                     </td>
                     <td>
-                        <a asp-controller="AjaxStavke" asp-action="Uredi" asp-route-id="@Row.MaturskiIspitStavkaId">Uredi</a>
+                        <a asp-controller="AjaxStavke" asp-action="Uredi" asp-route-id="@Row.MaturskiIspitStavkaId" 
+                           ajax-poziv="da" ajax-rezultat="AjaxDiv">Uredi</a>
                     </td>
                 }
                 else

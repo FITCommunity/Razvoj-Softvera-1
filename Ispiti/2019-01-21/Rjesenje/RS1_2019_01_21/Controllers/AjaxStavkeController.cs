@@ -50,5 +50,30 @@ namespace RS1_2019_01_21.Controllers
             };
             return PartialView(model);
         }
+
+        public IActionResult Uredi(int id)
+        {
+            var Stavka = ctx.MaturskiIspitStavka
+                .Include(i => i.OdjeljenjeStavka.Ucenik)
+                .Where(i => i.Id == id)
+                .SingleOrDefault();
+
+            var model = new AjaxStavkeUrediVM
+            {
+                MaturskiIspitStavkaId = id,
+                Ucenik = Stavka.OdjeljenjeStavka.Ucenik.ImePrezime,
+                Bodovi = Stavka.Bodovi
+            };
+
+            return PartialView(model);
+        }
+
+        public IActionResult Snimi(AjaxStavkeUrediVM model)
+        {
+            var Stavka = ctx.MaturskiIspitStavka.Find(model.MaturskiIspitStavkaId);
+            Stavka.Bodovi = model.Bodovi > 100 ? 100 : model.Bodovi < 0 ? 0 : model.Bodovi;
+            ctx.SaveChanges();
+            return Redirect("/AjaxStavke/Index/" + Stavka.MaturskiIspitId);
+        }
     }
 }
