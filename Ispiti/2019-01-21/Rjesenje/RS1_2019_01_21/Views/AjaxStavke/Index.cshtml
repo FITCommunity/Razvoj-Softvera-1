@@ -47,4 +47,14 @@
         }
     </tbody>
 </table>
-
+<script>
+    $(document).ready(function () {
+        $(".snimi-bodove").click(function (e) {
+            e.preventDefault();
+            id = $(this).parent().find("input.bodovi").attr("id");
+            bodovi = $(this).parent().find("input.bodovi").val();
+            
+            $.post("/AjaxStavke/SnimiBodove?id=" + id + "&bodovi=" + bodovi);
+        });
+    });
+</script>

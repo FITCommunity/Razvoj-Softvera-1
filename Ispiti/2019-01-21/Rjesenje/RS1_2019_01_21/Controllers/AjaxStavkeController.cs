@@ -75,5 +75,15 @@ namespace RS1_2019_01_21.Controllers
             ctx.SaveChanges();
             return Redirect("/AjaxStavke/Index/" + Stavka.MaturskiIspitId);
         }
+
+        //public IActionResult SnimiBodove(int id, int bodovi)
+        //{
+        //    var Stavka = ctx.MaturskiIspitStavka.Find(id);
+        //    Stavka.Bodovi = bodovi > 100 ? 100 : bodovi < 0 ? 0 : bodovi;
+        //    ctx.SaveChanges();
+        //    return Redirect("/AjaxStavke/Index/" + Stavka.MaturskiIspitId);
+        //}
+
+        public IActionResult SnimiBodove(int id, int bodovi) => Snimi(new AjaxStavkeUrediVM { MaturskiIspitStavkaId = id, Bodovi = bodovi });
     }
 }
