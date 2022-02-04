@@ -1,0 +1,85 @@
+<div *ngIf="student">
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label">Student ID</label>
+    <div class="col-sm-4">
+      <input [value]="student.id" disabled class="form-control" />
+    </div>
+  </div>
+
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label">Student ime</label>
+    <div class="col-sm-4">
+      <input [value]="student.ime" disabled class="form-control" />
+    </div>
+  </div>
+
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label">Student prezime</label>
+    <div class="col-sm-4">
+      <input [value]="student.prezime" disabled class="form-control" />
+    </div>
+  </div>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Ak godina</th>
+        <th>Godina</th>
+        <th>Obnova</th>
+        <th>
+          Zimski semestar<br />
+          <input value="Upis" disabled /> |
+          <input value="Ovjera" disabled />
+        </th>
+        <th>
+          Ljetni semestar<br />
+          <input value="Upis" disabled /> |
+          <input value="Ovjera" disabled />
+        </th>
+        <th>Evidentirao</th>
+        <th>Akcija</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let g of student.upisaneAkGodine">
+        <th>{{ g.id }}</th>
+        <th>{{ g.akademskaGodina.opis }}</th>
+        <th>{{ g.godinaStudija }}</th>
+        <th>{{ g.obnovaGodine }}</th>
+        <th>
+          Zimski semestar<br />
+          <input [value]="g.datum1_ZimskiUpis | date" disabled /> |
+          <input [value]="g.datum2_ZimskiOvjera | date" disabled />
+        </th>
+        <th>
+          Ljetni semestar<br />
+          <input [value]="g.datum3_LjetniUpis | date" disabled /> |
+          <input [value]="g.datum4_LjetniOvjera | date" disabled />
+        </th>
+        <th>{{ g.evidentiraoKorisnik.korisnickoIme }}</th>
+        <th>
+          <button
+            [disabled]="g.datum2_ZimskiOvjera != null"
+            (click)="ovjeriZimski(g.id)"
+          >
+            Ovjeri zismki
+          </button>
+        </th>
+      </tr>
+    </tbody>
+  </table>
+
+  <button type="button" (click)="upis()" class="form-label">
+    Upis u zimski semestar
+  </button>
+</div>
+
+<app-upis
+  *ngIf="showUpis == true"
+  (closeModal)="showUpis = false"
+  (result)="upisiZimski($event)"
+  [student]="student.ime + '' + student.prezime"
+  [godine]="student.cmbStavkeAkademskeGodine"
+></app-upis>

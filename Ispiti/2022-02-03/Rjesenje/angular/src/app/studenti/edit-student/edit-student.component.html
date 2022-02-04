@@ -1,0 +1,62 @@
+<div
+  class="modal fade show"
+  id="exampleModalLive"
+  tabindex="-1"
+  aria-labelledby="exampleModalLiveLabel"
+  aria-modal="true"
+  role="dialog"
+  style="display: block"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 *ngIf="student" class="modal-title" id="exampleModalLiveLabel">
+          Edit student
+        </h5>
+        <h5 *ngIf="!student" class="modal-title" id="exampleModalLiveLabel">
+          New student
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          (click)="close()"
+          aria-label="Close"
+        ></button>
+      </div>
+      <form (ngSubmit)="onSubmit()">
+        <div [formGroup]="form" class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Ime studenta</label>
+            <input
+              formControlName="ime"
+              class="form-control"
+              placeholder="Ime studenta"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Prezime studenta</label>
+            <input
+              formControlName="prezime"
+              class="form-control"
+              placeholder="Prezime studenta"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Opstina rodjenja</label>
+            <select formControlName="opstina_rodjenja_id" class="form-control">
+              <option *ngFor="let o of opstine" [value]="o.id">
+                {{ o.opis }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" (click)="close()" class="btn btn-secondary">
+            Close
+          </button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

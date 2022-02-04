@@ -1,0 +1,84 @@
+<div
+  class="modal fade show"
+  id="exampleModalLive"
+  tabindex="-1"
+  aria-labelledby="exampleModalLiveLabel"
+  aria-modal="true"
+  role="dialog"
+  style="display: block"
+>
+  <div class="modal-dialog">
+    <form (ngSubmit)="submit()">
+      <div [formGroup]="form" class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLiveLabel">
+            Novi semestar za {{ student }}
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            (click)="close()"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Datum</label>
+            <input
+              class="form-control"
+              type="date"
+              formControlName="datum"
+              placeholder="Datum"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Godina studija</label>
+            <input
+              class="form-control"
+              formControlName="godinaStudija"
+              placeholder="Godina studija"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Ak godina</label>
+            <select
+              class="form-control"
+              formControlName="akademskaGodinaId"
+              placeholder="Akg godina"
+            >
+              <option *ngFor="let g of godine" value="{{ g.id }}">
+                {{ g.opis }}
+              </option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">cijenaSkolarine</label>
+            <input
+              class="form-control"
+              formControlName="cijenaSkolarine"
+              placeholder="cijenaSkolarine"
+            />
+          </div>
+
+          <div class="mb-3 form-check">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              placeholder="obnovaGodine"
+              formControlName="obnovaGodine"
+            />
+            <label class="form-check-label">obnovaGodine</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" (click)="close()" class="btn btn-secondary">
+            Close
+          </button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
