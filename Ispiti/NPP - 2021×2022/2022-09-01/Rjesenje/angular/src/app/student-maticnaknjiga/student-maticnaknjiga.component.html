@@ -1,0 +1,130 @@
+<p>student-maticnaknjiga works!</p>
+
+<div>
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label">Student ID</label>
+    <div class="col-sm-4">
+      <input [value]="maticnaKnjiga.id" disabled class="form-control" />
+    </div>
+  </div>
+
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label">Student ime</label>
+    <div class="col-sm-4">
+      <input [value]="maticnaKnjiga.ime" disabled class="form-control" />
+    </div>
+  </div>
+
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label">Student prezime</label>
+    <div class="col-sm-4">
+      <input [value]="maticnaKnjiga.prezime" disabled class="form-control" />
+    </div>
+  </div>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Ak godina</th>
+        <th>Godina</th>
+        <th>Obnova</th>
+        <th>
+          Zimski semestar<br />
+          <input value="Upis" disabled /> |
+          <input value="Ovjera" disabled />
+        </th>
+        <th>
+          Ljetni semestar<br />
+          <input value="Upis" disabled /> |
+          <input value="Ovjera" disabled />
+        </th>
+        <th>Evidentirao</th>
+        <th>Akcija</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let m of maticnaKnjiga.godinaStudija">
+        <td>{{m.id}}</td>
+        <td>{{m.akademskaGodina.opis}}</td>
+        <td>{{m.godinaStudija}}</td>
+        <td>{{m.obnovaGodine}}</td>
+        <td>
+          <input value="{{m.datum1_ZimskiUpis.slice(0,10)}}" /> |
+          <input value="{{m.datum2_ZimskiOvjera.slice(0,10)}}" />
+        </td>
+
+        <td>
+          <input value="" /> |
+          <input value="" />
+        </td>
+
+        <td>{{m.evidentiraoKorisnik.korisnickoIme}}</td>
+        <td>
+          <a class="btn btn-link" (click)="ovjeriZimski(m.id)"
+            >Ovjeri zimski semestar
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button class="form-label" (click)="zimskiSemestar()">Upis u zimski semestar</button>
+</div>
+
+<div
+  class="modal fade show"
+  id="exampleModalLive"
+  tabindex="-1"
+  aria-labelledby="exampleModalLiveLabel"
+  aria-modal="true"
+  role="dialog"
+  style="display: block"
+  *ngIf="semestar!=null"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLiveLabel">Novi semestar za {{maticnaKnjiga.ime}} {{maticnaKnjiga.prezime}}</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="semestar=null"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label">Datum</label>
+          <input class="form-control" type="date" placeholder="Datum" [(ngModel)]="semestar.datum"/>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Godina studija</label>
+          <input class="form-control" placeholder="Godina studija" [(ngModel)]="semestar.godinaStudija"/>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Ak godina</label>
+          <select class="form-control" placeholder="Akg godina" [(ngModel)]="semestar.akGodina">
+            <option *ngFor="let godina of godine" value="{{godina.id}}">{{godina.opis}}</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">cijenaSkolarine</label>
+          <input class="form-control" placeholder="cijenaSkolarine" [(ngModel)]="semestar.cijenaSkolarine"/>
+        </div>
+
+        <div class="mb-3 form-check">
+          <input
+            type="checkbox"
+            class="form-check-input"
+            placeholder="obnovaGodine"
+            [(ngModel)]="semestar.obnova"
+          />
+          <label class="form-check-label">obnovaGodine</label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="semestar=null">Close</button>
+        <button type="button" class="btn btn-primary" (click)="upisiZimski()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

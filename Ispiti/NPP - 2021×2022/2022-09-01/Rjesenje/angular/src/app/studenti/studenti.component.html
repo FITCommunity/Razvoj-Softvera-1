@@ -1,0 +1,43 @@
+<p>studenti works!</p>
+
+
+<input type="checkbox" [(ngModel)]="check_imeprezime"><p>Filter by ime i prezime <input [(ngModel)]="filter_imeprezime" /></p>
+<input type="checkbox" [(ngModel)]="check_opstina"><p>Filter by opstina <input [(ngModel)]="filter_opstina" /></p>
+<table class="table table-warning">
+  <tr>
+    <th>ID</th>
+    <th>Ime</th>
+    <th>Prezime</th>
+    <th>Broj indeksa</th>
+    <th>Drzava rođenja</th>
+    <th>Opstina rođenja</th>
+    <th>Datum dodavanja</th>
+    <th>Profilna slika</th>
+    <th>Akcija</th>
+  </tr>
+  <tbody>
+    <tr *ngFor="let s of filter()">
+      <td>{{ s.id }}</td>
+      <td>{{ s.ime }}</td>
+      <td>{{ s.prezime }}</td>
+      <td>{{ s.broj_indeksa }}</td>
+      <td>
+        {{ s.opstina_rodjenja != null ? s.opstina_rodjenja.drzava.naziv : "" }}
+      </td>
+      <td>
+        {{ s.opstina_rodjenja != null ? s.opstina_rodjenja.description : "" }}
+      </td>
+      <td>{{ s.created_time.slice(0,10) }}</td>
+      <td><img class="profilna-slika" src="{{ s.slika_korisnika }}" /></td>
+      <td>
+        <button (click)="obrisiStudent(s)">Obrisi</button>
+        <button (click)="urediStudent(s)">Uredi</button>
+        <button (click)="maticnaKnjiga(s)">Maticna knjiga</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<button class="form-label" (click)="dodajStudent()">Novi student</button>
+
+<app-student-edit [urediStudent] = "odabraniStudent"></app-student-edit>
