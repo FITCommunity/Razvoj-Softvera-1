@@ -1,11 +1,8 @@
-﻿using FIT_Api_Examples.Modul0_Autentifikacija.Models;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+using FIT_Api_Examples.Modul0_Autentifikacija.Models;
 
-namespace FIT_Api_Examples.Modul4_MaticnaKnjiga.Models
+namespace FIT_Api_Examples.Modul2.Models
 {
     public class AkademskaGodina
     {

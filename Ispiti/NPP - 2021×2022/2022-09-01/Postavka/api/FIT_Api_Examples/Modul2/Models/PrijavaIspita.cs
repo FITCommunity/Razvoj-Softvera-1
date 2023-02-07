@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Security.Permissions;
-using System.Threading.Tasks;
-using FIT_Api_Examples.Modul2.Models;
+using FIT_Api_Examples.Modul3_MaticnaKnjiga.Models;
 
-namespace FIT_Api_Examples.Modul3.Models
+namespace FIT_Api_Examples.Modul2.Models
 {
     public class PrijavaIspita
     {

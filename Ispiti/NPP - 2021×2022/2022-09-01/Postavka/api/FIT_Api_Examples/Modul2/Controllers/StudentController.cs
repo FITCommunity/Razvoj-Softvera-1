@@ -8,7 +8,7 @@ using FIT_Api_Examples.Helper.AutentifikacijaAutorizacija;
 using FIT_Api_Examples.Modul0_Autentifikacija.Models;
 using FIT_Api_Examples.Modul2.Models;
 using FIT_Api_Examples.Modul2.ViewModels;
-using FIT_Api_Examples.Modul3.Models;
+using FIT_Api_Examples.Modul3_MaticnaKnjiga.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,24 +26,25 @@ namespace FIT_Api_Examples.Modul2.Controllers
             this._dbContext = dbContext;
         }
 
-        [HttpGet("{id}")]
-        public ActionResult Get(int id)
-        {
-            if (!HttpContext.GetLoginInfo().isLogiran)
-                return Forbid();
-
-            return Ok(_dbContext.Student.Include(s => s.opstina_rodjenja.drzava).FirstOrDefault(s => s.id == id)); ;
-        }
-
+       
         [HttpGet]
-        public ActionResult<List<Student>> GetAll(string ime_prezime)
+        public ActionResult GetAll(string ime_prezime)
         {
             var data = _dbContext.Student
                 .Include(s => s.opstina_rodjenja.drzava)
                 .Where(x => ime_prezime == null || (x.ime + " " + x.prezime).StartsWith(ime_prezime) || (x.prezime + " " + x.ime).StartsWith(ime_prezime))
                 .OrderByDescending(s => s.id)
+                .Select(s=>new 
+                {
+                    imeaaa = s.ime,
+                    aaaa = s.prezime,
+                    
+
+                })
                 .AsQueryable();
-            return data.Take(100).ToList();
+
+
+            return Ok( data.Take(100).ToList());
         }
 
     }

@@ -3,12 +3,6 @@
 export class LoginInformacije {
   autentifikacijaToken:        AutentifikacijaToken=null;
   isLogiran:                   boolean=false;
-  isPermisijaStudentskaSluzba: boolean=false;
-  isPermisijaDekan:            boolean=false;
-  isPermisijaProdekan:         boolean=false;
-  isPermisijaNastavnik:        boolean=false;
-  isPermisijaStudent:          boolean=false;
-  isPermsijaAdmin:             boolean=false;
 }
 
 export interface AutentifikacijaToken {

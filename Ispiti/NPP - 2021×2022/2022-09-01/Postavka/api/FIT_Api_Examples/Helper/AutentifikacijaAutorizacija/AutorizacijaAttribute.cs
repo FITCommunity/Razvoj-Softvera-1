@@ -54,30 +54,11 @@ namespace FIT_Api_Examples.Helper.AutentifikacijaAutorizacija
 
             KretanjePoSistemu.Save(filterContext.HttpContext);
             
-            if (filterContext.HttpContext.GetLoginInfo().isPermisijaAdmin)
+            if (filterContext.HttpContext.GetLoginInfo().isLogiran)
             {
                 return;//ok - ima pravo pristupa
             }
-            if (filterContext.HttpContext.GetLoginInfo().isPermisijaStudentskaSluzba && _studentskaSluzba)
-            {
-                return;//ok - ima pravo pristupa
-            }
-            if (filterContext.HttpContext.GetLoginInfo().isPermisijaDekan && _dekan)
-            {
-                return;//ok - ima pravo pristupa
-            }
-            if (filterContext.HttpContext.GetLoginInfo().isPermisijaStudent && _studenti)
-            {
-                return;//ok - ima pravo pristupa
-            }
-            if (filterContext.HttpContext.GetLoginInfo().isPermisijaNastavnik && _nastavnici)
-            {
-                return;//ok - ima pravo pristupa
-            }
-            if (filterContext.HttpContext.GetLoginInfo().isPermisijaProdekan && _prodekan)
-            {
-                return;//ok - ima pravo pristupa
-            }
+           
 
             //else nema pravo pristupa
             filterContext.Result = new UnauthorizedResult();

@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.Json.Serialization;
 using FIT_Api_Examples.Modul2.Models;
-using FIT_Api_Examples.Modul3.Models;
+using FIT_Api_Examples.Modul3_MaticnaKnjiga.Models;
 
 namespace FIT_Api_Examples.Modul0_Autentifikacija.Models
 {

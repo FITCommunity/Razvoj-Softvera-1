@@ -1,7 +1,6 @@
 ﻿using FIT_Api_Examples.Modul0_Autentifikacija.Models;
 using FIT_Api_Examples.Modul2.Models;
-using FIT_Api_Examples.Modul3.Models;
-using FIT_Api_Examples.Modul4_MaticnaKnjiga.Models;
+using FIT_Api_Examples.Modul3_MaticnaKnjiga.Models;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -21,6 +20,7 @@ namespace FIT_Api_Examples.Data
         public DbSet<KorisnickiNalog> KorisnickiNalog{ get; set; }
         public DbSet<Obavijest> Obavijest{ get; set; }
         public DbSet<AkademskaGodina> AkademskaGodina { get; set; }
+        public DbSet<UpisAkGodine> AkGodines { get; set; }
 
         public ApplicationDbContext(
             DbContextOptions options) : base(options)
