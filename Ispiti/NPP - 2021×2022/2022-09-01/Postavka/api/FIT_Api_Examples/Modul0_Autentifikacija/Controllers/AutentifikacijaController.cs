@@ -7,7 +7,6 @@ using FIT_Api_Examples.Helper.AutentifikacijaAutorizacija;
 using FIT_Api_Examples.Modul0_Autentifikacija.Models;
 using FIT_Api_Examples.Modul0_Autentifikacija.ViewModels;
 using FIT_Api_Examples.Modul2.Models;
-using FIT_Api_Examples.Modul3.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using static FIT_Api_Examples.Helper.AutentifikacijaAutorizacija.MyAuthTokenExtension;

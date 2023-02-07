@@ -7,8 +7,7 @@ using FIT_Api_Examples.Helper.AutentifikacijaAutorizacija;
 using FIT_Api_Examples.Modul0_Autentifikacija.Models;
 using FIT_Api_Examples.Modul0_Autentifikacija.ViewModels;
 using FIT_Api_Examples.Modul2.Models;
-using FIT_Api_Examples.Modul3.Models;
-using FIT_Api_Examples.Modul4_MaticnaKnjiga.Models;
+using FIT_Api_Examples.Modul3_MaticnaKnjiga.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -101,7 +100,6 @@ namespace FIT_Api_Examples.Modul1_TestniPodaci.Controllers
             {
                 studenti.Add(new Student
                 {
-                   datum_rodjenja = new DateTime(rnd.Next(2000, 2004), rnd.Next(1, 13) , rnd.Next(1, 29)),
                    broj_indeksa = $"IB200{i:d}",
                    created_time=DateTime.Now,
                    ime = TokenGenerator.GenerisiIme(5),

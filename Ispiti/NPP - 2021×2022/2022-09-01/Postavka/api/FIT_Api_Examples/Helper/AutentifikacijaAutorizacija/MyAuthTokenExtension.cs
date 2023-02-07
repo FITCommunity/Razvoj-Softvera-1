@@ -23,12 +23,7 @@ namespace FIT_Api_Examples.Helper.AutentifikacijaAutorizacija
             public AutentifikacijaToken autentifikacijaToken { get; set; }
             
             public bool isLogiran => korisnickiNalog != null;
-            public bool isPermisijaStudentskaSluzba => isLogiran && (korisnickiNalog.isStudentskaSluzba || korisnickiNalog.isProdekan || korisnickiNalog.isAdmin);
-            public bool isPermisijaDekan => isLogiran && (korisnickiNalog.isDekan || korisnickiNalog.isAdmin);
-            public bool isPermisijaProdekan => isLogiran && (korisnickiNalog.isProdekan || korisnickiNalog.isDekan || korisnickiNalog.isAdmin);
-            public bool isPermisijaNastavnik => isLogiran && (korisnickiNalog.nastavnik != null || korisnickiNalog.isAdmin);
-            public bool isPermisijaStudent => isLogiran && (korisnickiNalog.student != null || korisnickiNalog.isAdmin);
-            public bool isPermisijaAdmin => isLogiran && korisnickiNalog.isAdmin;
+         
         }
 
 

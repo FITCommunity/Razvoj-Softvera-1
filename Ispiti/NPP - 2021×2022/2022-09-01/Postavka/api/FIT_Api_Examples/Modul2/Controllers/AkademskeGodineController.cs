@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using FIT_Api_Examples.Data;
 using FIT_Api_Examples.Helper;
-using FIT_Api_Examples.Helper.AutentifikacijaAutorizacija;
-using FIT_Api_Examples.Modul3.Models;
-using FIT_Api_Examples.Modul4_MaticnaKnjiga.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
-namespace FIT_Api_Examples.Modul4_MaticnaKnjiga.Controllers
+namespace FIT_Api_Examples.Modul2.Controllers
 {
     //[Authorize]
     [ApiController]
@@ -35,5 +30,6 @@ namespace FIT_Api_Examples.Modul4_MaticnaKnjiga.Controllers
                 })
                 .ToList();
         }
+ 
     }
 }

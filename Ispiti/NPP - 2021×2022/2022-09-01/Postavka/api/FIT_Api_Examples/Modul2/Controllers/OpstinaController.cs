@@ -25,7 +25,7 @@ namespace FIT_Api_Examples.Modul2.Controllers
         [HttpPost]
         public ActionResult<Opstina> Add([FromBody] OpstinaAddVM x)
         {
-            if (!HttpContext.GetLoginInfo().isPermisijaStudentskaSluzba)
+            if (!HttpContext.GetLoginInfo().isLogiran)
                 return BadRequest("nije logiran");
 
             var opstina = new Opstina
