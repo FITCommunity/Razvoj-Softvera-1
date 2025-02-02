@@ -1,0 +1,47 @@
+<p>Novi semestar za {{student?.firstName}} {{student?.lastName}}</p>
+<mat-card class="city-form-card">
+  
+    <form (ngSubmit)="saveSemester()" [formGroup]="semesterForm">
+
+        <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Datum</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="datum" required>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          
+
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Godina studija</mat-label>
+        <input formControlName="godinaStudija" matInput required/>
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Akademska Godina</mat-label>
+        <mat-select formControlName="akGodina" required>
+          <mat-option *ngFor="let godina of akademskeGodine" [value]="godina.id">
+            {{ godina.description }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Cijena skolarine</mat-label>
+        <input formControlName="cijenaSkolarine" matInput/>
+      </mat-form-field>
+  
+      <mat-checkbox formControlName="obnova">Obnova</mat-checkbox>
+  
+      <div class="form-buttons">
+        <button [disabled]="semesterForm.invalid" color="primary" mat-raised-button type="submit">
+          Save Changes
+        </button>
+        <button color="warn" mat-raised-button routerLink="/admin/cities" type="button">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </mat-card>
+  
+  
+
