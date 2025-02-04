@@ -13,7 +13,6 @@ export interface SemesterReadResponse{
     datumUpisa:Date;
     godinaStudija:number;
     akademskaGodinaId:number;
-    akademskaGodinaStartDate:Date;
     akademskaGodinaDescription:string;
     cijenaSkolarine:number;
     obnova:boolean;

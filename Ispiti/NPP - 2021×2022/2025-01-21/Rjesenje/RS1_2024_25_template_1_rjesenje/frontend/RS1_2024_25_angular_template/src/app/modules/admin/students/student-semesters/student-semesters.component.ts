@@ -17,7 +17,7 @@ export class StudentSemestersComponent implements OnInit{
   studentId:number;
   student:StudentGetByIdResponse | null = null;
   semesters:SemesterReadResponse[]=[];
-  displayedColumns: string[] = ['id', 'akademskaGodinaDescription', 'godinaStudija','obnova','akademskaGodinaStartDate','profesorName'];
+  displayedColumns: string[] = ['id', 'akademskaGodinaDescription', 'godinaStudija','obnova','datumUpisa','profesorName'];
   dataSource: MatTableDataSource<SemesterReadResponse> = new MatTableDataSource<SemesterReadResponse>();
   constructor(private semesterService:SemesterGetByStudentService,private route: ActivatedRoute,
     public router: Router,private dialog: MatDialog,private studentService:StudentGetByIdEndpointService) {
