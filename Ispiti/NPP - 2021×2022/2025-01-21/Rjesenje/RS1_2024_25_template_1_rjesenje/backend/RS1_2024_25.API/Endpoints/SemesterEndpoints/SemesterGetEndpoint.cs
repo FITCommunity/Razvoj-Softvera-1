@@ -27,6 +27,7 @@ namespace RS1_2024_25.API.Endpoints.SemesterEndpoints
                      DatumUpisa = x.DatumUpisa.ToString("yyyy-MM-dd"),
                      GodinaStudija = x.GodinaStudija,
                      AkademskaGodinaId = x.AkademskaGodinaId,
+                     AkademskaGodinaStartDate = x.AkademskaGodina.StartDate,
                      AkademskaGodinaDescription = x.AkademskaGodina.Description.Substring(x.AkademskaGodina.Description.LastIndexOf(' ') + 1),
                      CijenaSkolarine = x.CijenaSkolarine,
                      Obnova = x.Obnova,
@@ -80,6 +81,7 @@ namespace RS1_2024_25.API.Endpoints.SemesterEndpoints
         public required int GodinaStudija { get; set; }
         public required int AkademskaGodinaId { get; set; }
         public AcademicYear? AkademskaGodina { get; set; }
+        public DateOnly AkademskaGodinaStartDate { get; set; }
         public string AkademskaGodinaDescription { get; set; }
         public required float CijenaSkolarine { get; set; }
         public required bool Obnova { get; set; }
